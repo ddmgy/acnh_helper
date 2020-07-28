@@ -1,7 +1,7 @@
 name: acnh_helper
 description: "Animal Crossing: New Horizons helper/tracker."
 author: "David Mougey <imapiekindaguy@gmail.com>"
-version: 0.1.0
+version: 0.2.0
 homepage: "https://github.com/ddmgy/acnh_helper"
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
