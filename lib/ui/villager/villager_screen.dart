@@ -64,11 +64,9 @@ class VillagerScreen extends BaseScreen<VillagersProvider, Villager> {
 
   @override
   void performRefresh(BuildContext context) async {
-    if (Provider
-        .of<VillagersProvider>(context, listen: false)
-        .items
-        .isEmpty) {
-      Provider.of<VillagersProvider>(context, listen: false).loadItems();
+    final provider = Provider.of<VillagersProvider>(context, listen: false);
+    if (provider.items.isEmpty) {
+      provider.loadItems();
       return;
     }
 
@@ -78,9 +76,7 @@ class VillagerScreen extends BaseScreen<VillagersProvider, Villager> {
       var networkItems = List.generate(maps.length, (i) {
         return Villager.fromNetworkMap(maps[i]);
       });
-      final dbItems = Provider
-          .of<VillagersProvider>(context, listen: false)
-          .items;
+      final dbItems = provider.items;
 
       for (int i = 0; i < dbItems.length; i++) {
         var dbItem = dbItems[i];
@@ -90,7 +86,7 @@ class VillagerScreen extends BaseScreen<VillagersProvider, Villager> {
         networkItems[j] = item;
       }
 
-      Provider.of<VillagersProvider>(context, listen: false).updateAllItems(networkItems);
+      provider.updateAllItems(networkItems);
     }
   }
 

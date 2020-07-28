@@ -65,8 +65,9 @@ class SeaCreatureScreen extends BaseScreen<SeaCreaturesProvider, SeaCreature> {
 
   @override
   void performRefresh(BuildContext context) async {
-    if (Provider.of<SeaCreaturesProvider>(context, listen: false).items.isEmpty) {
-      Provider.of<SeaCreaturesProvider>(context, listen: false).loadItems();
+    final provider = Provider.of<SeaCreaturesProvider>(context, listen: false);
+    if (provider.items.isEmpty) {
+      provider.loadItems();
       return;
     }
 
@@ -76,7 +77,7 @@ class SeaCreatureScreen extends BaseScreen<SeaCreaturesProvider, SeaCreature> {
       var networkItems = List.generate(maps.length, (i) {
         return SeaCreature.fromNetworkMap(maps[i]);
       });
-      final dbItems = Provider.of<SeaCreaturesProvider>(context, listen: false).items;
+      final dbItems = provider.items;
 
       for (int i = 0; i < dbItems.length; i++) {
         var dbItem = dbItems[i];
@@ -87,7 +88,7 @@ class SeaCreatureScreen extends BaseScreen<SeaCreaturesProvider, SeaCreature> {
         networkItems[j] = item;
       }
 
-      Provider.of<SeaCreaturesProvider>(context, listen: false).updateAllItems(networkItems);
+      provider.updateAllItems(networkItems);
     }
   }
 

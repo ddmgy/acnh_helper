@@ -67,8 +67,9 @@ class FishScreen extends BaseScreen<FishesProvider, Fish> {
 
   @override
   void performRefresh(BuildContext context) async {
-    if (Provider.of<FishesProvider>(context, listen: false).items.isEmpty) {
-      Provider.of<FishesProvider>(context, listen: false).loadItems();
+    final provider = Provider.of<FishesProvider>(context, listen: false);
+    if (provider.items.isEmpty) {
+      provider.loadItems();
       return;
     }
 
@@ -78,7 +79,7 @@ class FishScreen extends BaseScreen<FishesProvider, Fish> {
       var networkItems = List.generate(maps.length, (i) {
         return Fish.fromNetworkMap(maps[i]);
       });
-      final dbItems = Provider.of<FishesProvider>(context, listen: false).items;
+      final dbItems = provider.items;
 
       for (int i = 0; i < dbItems.length; i++) {
         var dbItem = dbItems[i];
@@ -89,7 +90,7 @@ class FishScreen extends BaseScreen<FishesProvider, Fish> {
         networkItems[j] = item;
       }
 
-      Provider.of<FishesProvider>(context, listen: false).updateAllItems(networkItems);
+      provider.updateAllItems(networkItems);
     }
   }
 

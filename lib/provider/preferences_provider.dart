@@ -131,7 +131,6 @@ class PreferencesProvider extends ChangeNotifier {
   }
 
   Future<void> setFilterBy(String itemType, String filterType, bool filterBy) async {
-
     await _prefs.setFilterBy(itemType, filterType, filterBy);
     _filterBys[_filterBysKey(itemType, filterType)] = filterBy;
     notifyListeners();

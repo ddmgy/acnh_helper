@@ -58,8 +58,9 @@ class FossilScreen extends BaseScreen<FossilsProvider, Fossil> {
 
   @override
   void performRefresh(BuildContext context) async {
-    if (Provider.of<FossilsProvider>(context, listen: false).items.isEmpty) {
-      Provider.of<FossilsProvider>(context, listen: false).loadItems();
+    final provider = Provider.of<FossilsProvider>(context, listen: false);
+    if (provider.items.isEmpty) {
+      provider.loadItems();
       return;
     }
 
@@ -69,7 +70,7 @@ class FossilScreen extends BaseScreen<FossilsProvider, Fossil> {
       var networkItems = List.generate(maps.length, (i) {
         return Fossil.fromNetworkMap(i + 1, maps[i]);
       });
-      final dbItems = Provider.of<FossilsProvider>(context, listen: false).items;
+      final dbItems = provider.items;
 
       for (int i = 0; i < dbItems.length; i++) {
         var dbItem = dbItems[i];
@@ -80,7 +81,7 @@ class FossilScreen extends BaseScreen<FossilsProvider, Fossil> {
         networkItems[j] = item;
       }
 
-      Provider.of<FossilsProvider>(context, listen: false).updateAllItems(networkItems);
+      provider.updateAllItems(networkItems);
     }
   }
 

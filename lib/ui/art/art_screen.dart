@@ -48,8 +48,9 @@ class ArtScreen extends BaseScreen<ArtsProvider, Art> {
 
   @override
   void performRefresh(BuildContext context) async {
-    if (Provider.of<ArtsProvider>(context, listen: false).items.isEmpty) {
-      Provider.of<ArtsProvider>(context, listen: false).loadItems();
+    final provider = Provider.of<ArtsProvider>(context, listen: false);
+    if (provider.items.isEmpty) {
+      provider.loadItems();
       return;
     }
 
@@ -59,7 +60,7 @@ class ArtScreen extends BaseScreen<ArtsProvider, Art> {
       var networkItems = List.generate(maps.length, (i) {
         return Art.fromNetworkMap(maps[i]);
       });
-      final dbItems = Provider.of<ArtsProvider>(context, listen: false).items;
+      final dbItems = provider.items;
 
       for (int i = 0; i < dbItems.length; i++) {
         var dbItem = dbItems[i];
@@ -70,7 +71,7 @@ class ArtScreen extends BaseScreen<ArtsProvider, Art> {
         networkItems[j] = item;
       }
 
-      Provider.of<ArtsProvider>(context, listen: false).updateAllItems(networkItems);
+      provider.updateAllItems(networkItems);
     }
   }
 

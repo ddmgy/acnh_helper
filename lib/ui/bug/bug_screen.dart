@@ -65,8 +65,9 @@ class BugScreen extends BaseScreen<BugsProvider, Bug> {
 
   @override
   void performRefresh(BuildContext context) async {
-    if (Provider.of<BugsProvider>(context, listen: false).items.isEmpty) {
-      Provider.of<BugsProvider>(context, listen: false).loadItems();
+    final provider = Provider.of<BugsProvider>(context, listen: false);
+    if (provider.items.isEmpty) {
+      provider.loadItems();
       return;
     }
 
@@ -76,7 +77,7 @@ class BugScreen extends BaseScreen<BugsProvider, Bug> {
       var networkItems = List.generate(maps.length, (i) {
         return Bug.fromNetworkMap(maps[i]);
       });
-      final dbItems = Provider.of<BugsProvider>(context, listen: false).items;
+      final dbItems = provider.items;
 
       for (int i = 0; i < dbItems.length; i++) {
         var dbItem = dbItems[i];
@@ -87,7 +88,7 @@ class BugScreen extends BaseScreen<BugsProvider, Bug> {
         networkItems[j] = item;
       }
 
-      Provider.of<BugsProvider>(context, listen: false).updateAllItems(networkItems);
+      provider.updateAllItems(networkItems);
     }
   }
 
