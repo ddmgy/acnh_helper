@@ -42,18 +42,18 @@ class BugScreen extends BaseScreen<BugsProvider, Bug> {
 
   @override
   List<Widget> getFilterByWidgets(BuildContext context) => [
-    FilterByFoundButton(),
-    FilterByDonatedButton(),
-    FilterByCurrentlyAvailable(),
-    FilterByNewlyAvailable(),
-    FilterByLeavingSoon(),
+    FilterByFoundButton(itemType: itemType),
+    FilterByDonatedButton(itemType: itemType),
+    FilterByCurrentlyAvailable(itemType: itemType),
+    FilterByNewlyAvailable(itemType: itemType),
+    FilterByLeavingSoon(itemType: itemType),
   ];
 
   @override
   List<Widget> getSortByWidgets(BuildContext context) => [
     SortAscendingButton(),
     SortByButton(
-      itemType: "bugs",
+      itemType: itemType,
       values: [
         SortBy.InGameOrder,
         SortBy.Name,

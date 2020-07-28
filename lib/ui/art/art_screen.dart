@@ -37,8 +37,8 @@ class ArtScreen extends BaseScreen<ArtsProvider, Art> {
 
   @override
   List<Widget> getFilterByWidgets(BuildContext context) => [
-    FilterByFoundButton(),
-    FilterByDonatedButton(),
+    FilterByFoundButton(itemType: itemType),
+    FilterByDonatedButton(itemType: itemType),
   ];
 
   @override

@@ -102,14 +102,14 @@ class PreferencesHelper {
     prefs.setInt(PreferenceKeys.sortBy(itemType), sortBy.toInt());
   }
 
-  Future<bool> getFilterBy(String filterType) async {
+  Future<bool> getFilterBy(String itemType, String filterType) async {
     final prefs = await preferences;
-    return prefs.getBool(PreferenceKeys.filterBy(filterType));
+    return prefs.getBool(PreferenceKeys.filterBy(itemType, filterType));
   }
 
-  Future<void> setFilterBy(String filterType, bool filterBy) async {
+  Future<void> setFilterBy(String itemType, String filterType, bool filterBy) async {
     final prefs = await preferences;
-    prefs.setBool(PreferenceKeys.filterBy(filterType), filterBy);
+    prefs.setBool(PreferenceKeys.filterBy(itemType, filterType), filterBy);
   }
 
   Future<bool> getSortByTileExpanded(String itemType) async {
@@ -150,7 +150,7 @@ class PreferenceKeys {
 
   static String sortBy(String itemType) => "sort_by_$itemType";
 
-  static String filterBy(String filterType) => "filter_by_$filterType";
+  static String filterBy(String itemType, String filterType) => "filter_by_${filterType}_on_${itemType}";
 
   static String sortByTileExpanded(String itemType) => "sort_by_tile_expanded_$itemType";
 

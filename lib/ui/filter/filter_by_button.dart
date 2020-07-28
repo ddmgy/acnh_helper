@@ -8,12 +8,14 @@ import 'package:acnh_helper/utils.dart';
 
 abstract class FilterByButton extends StatelessWidget {
   final String title;
+  final String itemType;
   final String filterType;
   final String tooltip;
 
   FilterByButton({
     Key key,
     @required this.title,
+    @required this.itemType,
     @required this.filterType,
     this.tooltip,
   }) :
@@ -34,14 +36,14 @@ abstract class FilterByButton extends StatelessWidget {
             style: context.titleTextStyle(),
           ),
           onTap: () {
-            final value = provider.getFilterBy(filterType);
-            provider.setFilterBy(filterType, value != null ? (!value ? true : null) : false);
+            final value = provider.getFilterBy(itemType, filterType);
+            provider.setFilterBy(itemType, filterType, value != null ? (!value ? true : null) : false);
           },
           trailing: Checkbox(
-            value: provider.getFilterBy(filterType),
+            value: provider.getFilterBy(itemType, filterType),
             tristate: true,
             onChanged: (bool value) {
-              provider.setFilterBy(filterType, value);
+              provider.setFilterBy(itemType, filterType, value);
             },
           ),
           dense: true,
@@ -63,65 +65,77 @@ abstract class FilterByButton extends StatelessWidget {
 class FilterByFoundButton extends FilterByButton {
   FilterByFoundButton({
     Key key,
+    @required String itemType,
   }) : super(
     key: key,
     title: "Found",
-    tooltip: "Filter by found",
+    itemType: itemType,
     filterType: FilterType.found,
+    tooltip: "Filter if item has been found",
   );
 }
 
 class FilterByDonatedButton extends FilterByButton {
   FilterByDonatedButton({
     Key key,
+    @required String itemType,
   }) : super(
     key: key,
     title: "Donated",
-    tooltip: "Filter by donated",
+    itemType: itemType,
     filterType: FilterType.donated,
+    tooltip: "Filter if item has been donated",
   );
 }
 
 class FilterByIsNeighborButton extends FilterByButton {
   FilterByIsNeighborButton({
     Key key,
+    @required String itemType,
   }) : super(
     key: key,
     title: "Neighbor",
-    tooltip: "Filter by neighbor status",
+    itemType: itemType,
     filterType: FilterType.isNeighbor,
+    tooltip: "Filter by neighbor status",
   );
 }
 
 class FilterByCurrentlyAvailable extends FilterByButton {
   FilterByCurrentlyAvailable({
     Key key,
+    @required String itemType,
   }) : super(
     key: key,
     title: "Currently available",
-    tooltip: "Filter if item is currently available",
+    itemType: itemType,
     filterType: FilterType.isCurrentlyAvailable,
+    tooltip: "Filter if item is currently available",
   );
 }
 
 class FilterByNewlyAvailable extends FilterByButton {
   FilterByNewlyAvailable({
     Key key,
+    @required String itemType,
   }) : super(
     key: key,
     title: "Newly available",
-    tooltip: "Filter if item is newly available",
+    itemType: itemType,
     filterType: FilterType.isNewlyAvailable,
+    tooltip: "Filter if item is newly available",
   );
 }
 
 class FilterByLeavingSoon extends FilterByButton {
   FilterByLeavingSoon({
     Key key,
+    @required String itemType,
   }) : super(
     key: key,
     title: "Leaving soon",
-    tooltip: "Filter if item is leaving soon",
+    itemType: itemType,
     filterType: FilterType.isLeavingSoon,
+    tooltip: "Filter if item is leaving soon",
   );
 }

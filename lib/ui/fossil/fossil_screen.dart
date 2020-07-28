@@ -39,15 +39,15 @@ class FossilScreen extends BaseScreen<FossilsProvider, Fossil> {
 
   @override
   List<Widget> getFilterByWidgets(BuildContext context) => [
-    FilterByFoundButton(),
-    FilterByDonatedButton(),
+    FilterByFoundButton(itemType: itemType),
+    FilterByDonatedButton(itemType: itemType),
   ];
 
   @override
   List<Widget> getSortByWidgets(BuildContext context) => [
     SortAscendingButton(),
     SortByButton(
-      itemType: "fossils",
+      itemType: itemType,
       values: [
         SortBy.InGameOrder,
         SortBy.Name,

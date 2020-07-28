@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:search_page/search_page.dart';
 
 import 'package:acnh_helper/acnhapi.dart';
+import 'package:acnh_helper/filter_type.dart';
 import 'package:acnh_helper/model/traits.dart';
 import 'package:acnh_helper/provider/museum_items_provider.dart';
 import 'package:acnh_helper/provider/preferences_provider.dart';
@@ -176,12 +177,12 @@ abstract class BaseScreen<P extends MuseumItemsProvider, T extends CommonTraits>
   /// Filter and sort items based on preferences
   List<T> performFilterAndSort(BuildContext context, List<T> items) {
     final prefs = Provider.of<PreferencesProvider>(context, listen: false);
-    final filterByFound = prefs.getFilterBy("found");
-    final filterByDonated = prefs.getFilterBy("donated");
-    final filterByCurrentlyAvailable = prefs.getFilterBy("is_currently_available");
-    final filterByNewlyAvailable = prefs.getFilterBy("is_newly_available");
-    final filterByLeavingSoon = prefs.getFilterBy("is_leaving_soon");
-    final filterIsNeighbor = prefs.getFilterBy("is_neighbor");
+    final filterByFound = prefs.getFilterBy(itemType, FilterType.found);
+    final filterByDonated = prefs.getFilterBy(itemType, FilterType.donated);
+    final filterByCurrentlyAvailable = prefs.getFilterBy(itemType, FilterType.isCurrentlyAvailable);
+    final filterByNewlyAvailable = prefs.getFilterBy(itemType, FilterType.isNewlyAvailable);
+    final filterByLeavingSoon = prefs.getFilterBy(itemType, FilterType.isLeavingSoon);
+    final filterIsNeighbor = prefs.getFilterBy(itemType, FilterType.isNeighbor);
     final sortBy = prefs.getSortBy(itemType);
     final calendarOptions = prefs.calendarOptions;
 

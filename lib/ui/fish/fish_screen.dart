@@ -43,18 +43,18 @@ class FishScreen extends BaseScreen<FishesProvider, Fish> {
 
   @override
   List<Widget> getFilterByWidgets(BuildContext context) => [
-    FilterByFoundButton(),
-    FilterByDonatedButton(),
-    FilterByCurrentlyAvailable(),
-    FilterByNewlyAvailable(),
-    FilterByLeavingSoon(),
+    FilterByFoundButton(itemType: itemType),
+    FilterByDonatedButton(itemType: itemType),
+    FilterByCurrentlyAvailable(itemType: itemType),
+    FilterByNewlyAvailable(itemType: itemType),
+    FilterByLeavingSoon(itemType: itemType),
   ];
 
   @override
   List<Widget> getSortByWidgets(BuildContext context) => [
     SortAscendingButton(),
     SortByButton(
-      itemType: "fishes",
+      itemType: itemType,
       values: [
         SortBy.InGameOrder,
         SortBy.Name,

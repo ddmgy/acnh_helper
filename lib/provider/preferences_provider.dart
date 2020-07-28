@@ -123,13 +123,17 @@ class PreferencesProvider extends ChangeNotifier {
 
   Map<String, bool> _filterBys = {};
 
-  bool getFilterBy(String filterType) {
-    return _filterBys.containsKey(filterType) ? _filterBys[filterType] : null;
+  String _filterBysKey(String itemType, String filterType) => "$itemType,$filterType";
+
+  bool getFilterBy(String itemType, String filterType) {
+    final key = _filterBysKey(itemType, filterType);
+    return _filterBys.containsKey(key) ? _filterBys[key] : null;
   }
 
-  Future<void> setFilterBy(String filterType, bool filterBy) async {
-    await _prefs.setFilterBy(filterType, filterBy);
-    _filterBys[filterType] = filterBy;
+  Future<void> setFilterBy(String itemType, String filterType, bool filterBy) async {
+
+    await _prefs.setFilterBy(itemType, filterType, filterBy);
+    _filterBys[_filterBysKey(itemType, filterType)] = filterBy;
     notifyListeners();
   }
 
@@ -173,9 +177,9 @@ class PreferencesProvider extends ChangeNotifier {
       _sortBys[itemType] = await _prefs.getSortBy(itemType);
       _sortByTileExpanded[itemType] = await _prefs.getSortByTileExpanded(itemType);
       _filterByTileExpanded[itemType] = await _prefs.getFilterByTileExpanded(itemType);
-    }
-    for (var filterType in FilterType.all) {
-      _filterBys[filterType] = await _prefs.getFilterBy(filterType);
+      for (var filterType in FilterType.all) {
+        _filterBys[_filterBysKey(itemType, filterType)] = await _prefs.getFilterBy(itemType, filterType);
+      }
     }
     notifyListeners();
   }

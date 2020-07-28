@@ -43,14 +43,14 @@ class VillagerScreen extends BaseScreen<VillagersProvider, Villager> {
 
   @override
   List<Widget> getFilterByWidgets(BuildContext context) => [
-    FilterByIsNeighborButton(),
+    FilterByIsNeighborButton(itemType: itemType),
   ];
 
   @override
   List<Widget> getSortByWidgets(BuildContext context) => [
     SortAscendingButton(),
     SortByButton(
-      itemType: "villagers",
+      itemType: itemType,
       values: [
         SortBy.InGameOrder,
         SortBy.Name,
