@@ -20,4 +20,6 @@ class Routes {
   static const String villagerDetails = "/villager-details";
 
   static const String settings = "/settings";
+
+  static const String progress = "/progress";
 }

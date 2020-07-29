@@ -16,6 +16,7 @@ import 'package:acnh_helper/ui/common/routes.dart';
 import 'package:acnh_helper/ui/setting/settings_screen.dart';
 import 'package:acnh_helper/ui/fish/fish_details_screen.dart';
 import 'package:acnh_helper/ui/fossil/fossil_details_screen.dart';
+import 'package:acnh_helper/ui/progress/progress_screen.dart';
 import 'package:acnh_helper/ui/sea_creature/sea_creature_details_screen.dart';
 import 'package:acnh_helper/ui/villager/villager_details_screen.dart';
 
@@ -114,6 +115,12 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(
                   settings: settings,
                   builder: (_) => SettingsScreen(),
+                );
+                break;
+              case Routes.progress:
+                return MaterialPageRoute(
+                  settings: settings,
+                  builder: (_) => ProgressScreen(),
                 );
                 break;
             }

@@ -187,6 +187,8 @@ class PreferencesProvider extends ChangeNotifier {
 
   void clear() async {
     await _prefs.clear();
+    _showAsLists.clear();
+    _sortAscendings.clear();
     _sortBys.clear();
     _filterBys.clear();
     _sortByTileExpanded.clear();

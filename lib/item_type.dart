@@ -11,6 +11,8 @@ class ItemType {
 
   static get villagers => "villagers";
 
+  static get progress => "progress";
+
   static get all => [
     arts,
     bugs,
