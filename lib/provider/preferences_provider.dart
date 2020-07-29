@@ -59,10 +59,10 @@ class PreferencesProvider extends ChangeNotifier {
     return _showAsLists.containsKey(itemType) ? _showAsLists[itemType] : true;
   }
 
-  Future<void> setShowAsList(String itemType, bool showAsList) async {
-    await _prefs.setShowAsList(itemType, showAsList);
+  void setShowAsList(String itemType, bool showAsList) {
     _showAsLists[itemType] = showAsList;
     notifyListeners();
+    _prefs.setShowAsList(itemType, showAsList);
   }
 
   int _preferredMonth = 0;
@@ -105,10 +105,10 @@ class PreferencesProvider extends ChangeNotifier {
     return _sortAscendings.containsKey(itemType) ? _sortAscendings[itemType] : true;
   }
 
-  Future<void> setSortAscending(String itemType, bool sortAscending) async {
-    await _prefs.setSortAscending(itemType, sortAscending);
+  void setSortAscending(String itemType, bool sortAscending) {
     _sortAscendings[itemType] = sortAscending;
     notifyListeners();
+    _prefs.setSortAscending(itemType, sortAscending);
   }
 
   Map<String, SortBy> _sortBys = {};
@@ -117,10 +117,10 @@ class PreferencesProvider extends ChangeNotifier {
     return _sortBys.containsKey(itemType) ? _sortBys[itemType] : SortBy.InGameOrder;
   }
 
-  Future<void> setSortBy(String itemType, SortBy sortBy) async {
-    await _prefs.setSortBy(itemType, sortBy);
+  void setSortBy(String itemType, SortBy sortBy) {
     _sortBys[itemType] = sortBy;
     notifyListeners();
+    _prefs.setSortBy(itemType, sortBy);
   }
 
   Map<String, bool> _filterBys = {};
@@ -132,10 +132,10 @@ class PreferencesProvider extends ChangeNotifier {
     return _filterBys.containsKey(key) ? _filterBys[key] : null;
   }
 
-  Future<void> setFilterBy(String itemType, String filterType, bool filterBy) async {
-    await _prefs.setFilterBy(itemType, filterType, filterBy);
+  void setFilterBy(String itemType, String filterType, bool filterBy) {
     _filterBys[_filterBysKey(itemType, filterType)] = filterBy;
     notifyListeners();
+    _prefs.setFilterBy(itemType, filterType, filterBy);
   }
 
   Map<String, bool> _sortByTileExpanded = {};
@@ -144,10 +144,10 @@ class PreferencesProvider extends ChangeNotifier {
     return _sortByTileExpanded.containsKey(itemType) ? _sortByTileExpanded[itemType] : false;
   }
 
-  Future<void> setSortByTileExpanded(String itemType, bool sortByTileExpanded) async {
-    await _prefs.setSortByTileExpanded(itemType, sortByTileExpanded);
+  void setSortByTileExpanded(String itemType, bool sortByTileExpanded) {
     _sortByTileExpanded[itemType] = sortByTileExpanded;
     notifyListeners();
+    _prefs.setSortByTileExpanded(itemType, sortByTileExpanded);
   }
 
   Map<String, bool> _filterByTileExpanded = {};
@@ -156,10 +156,10 @@ class PreferencesProvider extends ChangeNotifier {
     return _filterByTileExpanded.containsKey(itemType) ? _filterByTileExpanded[itemType] : false;
   }
 
-  Future<void> setFilterByTileExpanded(String itemType, bool filterByTileExpanded) async {
-    await _prefs.setFilterByTileExpanded(itemType, filterByTileExpanded);
+  void setFilterByTileExpanded(String itemType, bool filterByTileExpanded) {
     _filterByTileExpanded[itemType] = filterByTileExpanded;
     notifyListeners();
+    _prefs.setFilterByTileExpanded(itemType, filterByTileExpanded);
   }
 
   PreferencesProvider() {
