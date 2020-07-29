@@ -118,7 +118,7 @@ abstract class BaseScreen<P extends MuseumItemsProvider, T extends CommonTraits>
     final prefs = Provider.of<PreferencesProvider>(context, listen: false);
 
     List<Widget> children = [
-      ShowAsListButton(),
+      ShowAsListButton(itemType: itemType),
     ];
 
     final sortBys = getSortByWidgets(context);
@@ -374,7 +374,7 @@ abstract class BaseScreen<P extends MuseumItemsProvider, T extends CommonTraits>
           );
         }
 
-        final showAsList = Provider.of<PreferencesProvider>(context).showAsList;
+        final showAsList = Provider.of<PreferencesProvider>(context).getShowAsList(itemType);
         Widget child;
         if (showAsList) {
           child = ListView.builder(

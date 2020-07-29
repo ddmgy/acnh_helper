@@ -42,14 +42,14 @@ class PreferencesHelper {
     prefs.setInt(PreferenceKeys.lastUsedPage, lastUsedPage);
   }
 
-  Future<bool> getShowAsList() async {
+  Future<bool> getShowAsList(String itemType) async {
     final prefs = await preferences;
-    return prefs.getBool(PreferenceKeys.showAsList) ?? true;
+    return prefs.getBool(PreferenceKeys.showAsList(itemType)) ?? true;
   }
 
-  Future<void> setShowAsList(bool showAsList) async {
+  Future<void> setShowAsList(String itemType, bool showAsList) async {
     final prefs = await preferences;
-    prefs.setBool(PreferenceKeys.showAsList, showAsList);
+    prefs.setBool(PreferenceKeys.showAsList(itemType), showAsList);
   }
 
   Future<bool> getFirstFetch(String itemType) async {
@@ -138,7 +138,7 @@ class PreferenceKeys {
 
   static String get lastUsedPage => "last_used_page";
 
-  static String get showAsList => "show_as_list";
+  static String showAsList(String itemType) => "show_as_list_on_$itemType";
 
   static String firstFetch(String itemType) => "first_fetch_$itemType";
 
@@ -150,7 +150,7 @@ class PreferenceKeys {
 
   static String sortBy(String itemType) => "sort_by_$itemType";
 
-  static String filterBy(String itemType, String filterType) => "filter_by_${filterType}_on_${itemType}";
+  static String filterBy(String itemType, String filterType) => "filter_by_${filterType}_on_$itemType";
 
   static String sortByTileExpanded(String itemType) => "sort_by_tile_expanded_$itemType";
 

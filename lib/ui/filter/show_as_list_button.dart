@@ -6,21 +6,30 @@ import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/utils.dart';
 
 class ShowAsListButton extends StatelessWidget {
+  final String itemType;
+
+  ShowAsListButton({
+    Key key,
+    @required this.itemType,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<PreferencesProvider>(
       builder: (context, provider, _) {
+        final showAsList = provider.getShowAsList(itemType);
+
         return ListTile(
           leading: Icon(
-            provider.showAsList ? Icons.view_list : Icons.view_module,
+            showAsList ? Icons.view_list : Icons.view_module,
             color: context.iconColor(),
           ),
           title: Text(
-            provider.showAsList ? "Show as list" : "Show as grid",
+            showAsList ? "Show as list" : "Show as grid",
             style: context.titleTextStyle(),
           ),
           onTap: () {
-            provider.showAsList = !provider.showAsList;
+            provider.setShowAsList(itemType, !showAsList);
           },
           dense: true,
         );

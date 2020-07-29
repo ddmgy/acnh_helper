@@ -53,15 +53,16 @@ class PreferencesProvider extends ChangeNotifier {
     _prefs.setLastUsedPage(_lastUsedPage);
   }
 
-  bool _showAsList = true;
-  bool get showAsList => _showAsList;
-  set showAsList(bool newShowAsList) {
-    if (newShowAsList == _showAsList) {
-      return;
-    }
-    _showAsList = newShowAsList;
+  Map<String, bool> _showAsLists = {};
+
+  bool getShowAsList(String itemType) {
+    return _showAsLists.containsKey(itemType) ? _showAsLists[itemType] : true;
+  }
+
+  Future<void> setShowAsList(String itemType, bool showAsList) async {
+    await _prefs.setShowAsList(itemType, showAsList);
+    _showAsLists[itemType] = showAsList;
     notifyListeners();
-    _prefs.setShowAsList(_showAsList);
   }
 
   int _preferredMonth = 0;
@@ -167,12 +168,12 @@ class PreferencesProvider extends ChangeNotifier {
   void _initPreferences() async {
     _themeType = await _prefs.getTheme();
     _lastUsedPage = await _prefs.getLastUsedPage();
-    _showAsList = await _prefs.getShowAsList();
     _preferredMonth = await _prefs.getPreferredMonth();
     _preferredHemisphere = await _prefs.getPreferredHemisphere();
     _updateCalendarOptions();
     _sortAscending = await _prefs.getSortAscending();
     for (var itemType in ItemType.all) {
+      _showAsLists[itemType] = await _prefs.getShowAsList(itemType);
       _sortBys[itemType] = await _prefs.getSortBy(itemType);
       _sortByTileExpanded[itemType] = await _prefs.getSortByTileExpanded(itemType);
       _filterByTileExpanded[itemType] = await _prefs.getFilterByTileExpanded(itemType);
