@@ -242,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
               showAboutDialog(
                 context: context,
                 applicationName: "AC:NH helper",
-                applicationVersion: "0.3.0",
+                applicationVersion: "0.4.0",
                 applicationLegalese: "© 2020 David Mougey",
               );
             },
