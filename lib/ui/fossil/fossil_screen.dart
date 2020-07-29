@@ -45,7 +45,7 @@ class FossilScreen extends BaseScreen<FossilsProvider, Fossil> {
 
   @override
   List<Widget> getSortByWidgets(BuildContext context) => [
-    SortAscendingButton(),
+    SortAscendingButton(itemType: itemType),
     SortByButton(
       itemType: itemType,
       values: [

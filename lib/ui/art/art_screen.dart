@@ -43,7 +43,7 @@ class ArtScreen extends BaseScreen<ArtsProvider, Art> {
 
   @override
   List<Widget> getSortByWidgets(BuildContext context) => [
-    SortAscendingButton(),
+    SortAscendingButton(itemType: itemType),
   ];
 
   @override

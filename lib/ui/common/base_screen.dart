@@ -321,7 +321,7 @@ abstract class BaseScreen<P extends MuseumItemsProvider, T extends CommonTraits>
 
       return a.id.compareTo(b.id); // Default: SortBy.InGameOrder
     });
-    if (!prefs.sortAscending) {
+    if (!prefs.getSortAscending(itemType)) {
       return result.reversed.toList();
     }
     return result.toList();

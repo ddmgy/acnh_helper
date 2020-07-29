@@ -99,15 +99,16 @@ class PreferencesProvider extends ChangeNotifier {
     );
   }
 
-  bool _sortAscending = true;
-  bool get sortAscending => _sortAscending;
-  set sortAscending(bool newSortAscending) {
-    if (newSortAscending == _sortAscending) {
-      return;
-    }
-    _sortAscending = newSortAscending;
+  Map<String, bool> _sortAscendings = {};
+
+  bool getSortAscending(String itemType) {
+    return _sortAscendings.containsKey(itemType) ? _sortAscendings[itemType] : true;
+  }
+
+  Future<void> setSortAscending(String itemType, bool sortAscending) async {
+    await _prefs.setSortAscending(itemType, sortAscending);
+    _sortAscendings[itemType] = sortAscending;
     notifyListeners();
-    _prefs.setSortAscending(_sortAscending);
   }
 
   Map<String, SortBy> _sortBys = {};
@@ -171,9 +172,9 @@ class PreferencesProvider extends ChangeNotifier {
     _preferredMonth = await _prefs.getPreferredMonth();
     _preferredHemisphere = await _prefs.getPreferredHemisphere();
     _updateCalendarOptions();
-    _sortAscending = await _prefs.getSortAscending();
     for (var itemType in ItemType.all) {
       _showAsLists[itemType] = await _prefs.getShowAsList(itemType);
+      _sortAscendings[itemType] = await _prefs.getSortAscending(itemType);
       _sortBys[itemType] = await _prefs.getSortBy(itemType);
       _sortByTileExpanded[itemType] = await _prefs.getSortByTileExpanded(itemType);
       _filterByTileExpanded[itemType] = await _prefs.getFilterByTileExpanded(itemType);

@@ -52,7 +52,7 @@ class FishScreen extends BaseScreen<FishesProvider, Fish> {
 
   @override
   List<Widget> getSortByWidgets(BuildContext context) => [
-    SortAscendingButton(),
+    SortAscendingButton(itemType: itemType),
     SortByButton(
       itemType: itemType,
       values: [

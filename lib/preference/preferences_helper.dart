@@ -82,14 +82,14 @@ class PreferencesHelper {
     prefs.setInt(PreferenceKeys.preferredHemisphere, preferredHemisphere.toInt());
   }
 
-  Future<bool> getSortAscending() async {
+  Future<bool> getSortAscending(String itemType) async {
     final prefs = await preferences;
-    return prefs.getBool(PreferenceKeys.sortAscending) ?? true;
+    return prefs.getBool(PreferenceKeys.sortAscending(itemType)) ?? true;
   }
 
-  Future<void> setSortAscending(bool sortAscending) async {
+  Future<void> setSortAscending(String itemType, bool sortAscending) async {
     final prefs = await preferences;
-    prefs.setBool(PreferenceKeys.sortAscending, sortAscending);
+    prefs.setBool(PreferenceKeys.sortAscending(itemType), sortAscending);
   }
 
   Future<SortBy> getSortBy(String itemType) async {
@@ -146,7 +146,7 @@ class PreferenceKeys {
 
   static String get preferredHemisphere => "preferred_hemisphere";
 
-  static String get sortAscending => "sort_ascending";
+  static String sortAscending(String itemType) => "sort_ascending_on_$itemType";
 
   static String sortBy(String itemType) => "sort_by_$itemType";
 
