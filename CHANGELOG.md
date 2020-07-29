@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- Screen to view progress for all items that can be donated to Museum. Each item type (bug, fish, art, etc.) shows progress for how many items were found and/or donated.
 
 ## [0.3.0] - 2020-07-28
 ### Added

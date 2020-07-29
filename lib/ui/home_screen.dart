@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Consumer<PreferencesProvider>(
       builder: (context, prefs, _) {
-        BaseScreen body = screens[prefs.lastUsedPage];
+        final body = screens[prefs.lastUsedPage];
 
         final endDrawerWidget = body.getFilterWidget(context);
         final overflowActions = [
@@ -196,6 +196,40 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ];
 
+        List<Widget> drawerChildren = [];
+
+        for (int index = 0; index < screens.length; index++) {
+          final screen = screens[index];
+          final tile = ListTile(
+            title: Text(
+              screen.name,
+              style: context.titleTextStyle(),
+            ),
+            dense: true,
+            selected: prefs.lastUsedPage == index,
+            onTap: () {
+              prefs.lastUsedPage = index;
+              Navigator.of(context).pop();
+            },
+          );
+          drawerChildren.add(tile);
+        }
+
+        drawerChildren.add(Divider());
+        drawerChildren.add(
+          ListTile(
+            title: Text(
+              "Progress",
+              style: context.titleTextStyle(),
+            ),
+            dense: true,
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(Routes.progress);
+            },
+          ),
+        );
+
         return Scaffold(
           appBar: AppBar(
             title: Text(body.name),
@@ -251,23 +285,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           drawer: Drawer(
-            child: ListView.separated(
-              itemCount: screens.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    screens[index].name,
-                    style: context.titleTextStyle(),
-                  ),
-                  dense: true,
-                  selected: prefs.lastUsedPage == index,
-                  onTap: () {
-                    prefs.lastUsedPage = index;
-                    Navigator.of(context).pop();
-                  },
-                );
-              },
-              separatorBuilder: (context, index) => Divider(),
+            child: ListView(
+              children: drawerChildren,
             ),
           ),
           endDrawer: Drawer(
