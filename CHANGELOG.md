@@ -8,6 +8,8 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 ### Added
 - Screen to view progress for all items that can be donated to Museum. Each item type (bug, fish, art, etc.) shows progress for how many items were found and/or donated.
 - About dialog, showing version number and linking to a list of licenses.
+### Fixed
+- Show as list/grid and sort ascending/descending preferences are now properly cleared when resetting all preferences.
 
 ## [0.3.0] - 2020-07-28
 ### Added
