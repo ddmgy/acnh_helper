@@ -51,7 +51,7 @@ extension MonthExtensions on Month {
     return index;
   }
 
-  String getName() {
+  String getName({bool includeCurrent = true}) {
     if (this == Month.Current) {
       final index = getCurrentMonth() - 1;
       return "${_monthNamesLong[index]}${includeCurrent ? ' (current)' : ''}";
