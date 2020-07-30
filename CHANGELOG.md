@@ -6,6 +6,10 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [0.5.0] - 2020-07-30
+### Changed
+- Editing calendar options (month and hemisphere) are now done in same menu as filters, rather than in separate dialog.
+
 ## [0.4.0] - 2020-07-29
 ### Added
 - Screen to view progress for all items that can be donated to Museum. Each item type (bug, fish, art, etc.) shows progress for how many items were found and/or donated.
