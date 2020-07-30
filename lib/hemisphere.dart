@@ -5,12 +5,10 @@ enum Hemisphere {
 
 extension HemisphereExtensions on Hemisphere {
   int toInt() {
-    assert(this != null);
     return this.index;
   }
 
   String getName() {
-    assert(this != null);
     switch (this) {
       case Hemisphere.Northern:
         return "Northern";

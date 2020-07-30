@@ -14,12 +14,10 @@ enum SortBy {
 
 extension SortByExtensions on SortBy {
   int toInt() {
-    assert(this != null);
     return index;
   }
 
   String getName() {
-    assert(this != null);
     switch (this) {
       case SortBy.InGameOrder:
         return "In-game order";
@@ -51,7 +49,7 @@ extension SortByExtensions on SortBy {
 
 extension IntExtensions on int {
   SortBy toSortBy() {
-    assert(this != null && this >= 0 && this < SortBy.values.length);
+    assert(this >= 0 && this < SortBy.values.length);
     return SortBy.values[this];
   }
 }

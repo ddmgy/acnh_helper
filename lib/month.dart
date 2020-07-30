@@ -48,22 +48,19 @@ const _monthNamesLong = [
 
 extension MonthExtensions on Month {
   int toInt() {
-    assert(this != null);
     return index;
   }
 
   String getName() {
-    assert(this != null);
     if (this == Month.Current) {
       final index = getCurrentMonth() - 1;
-      return "${_monthNamesLong[index]} (current)";
+      return "${_monthNamesLong[index]}${includeCurrent ? ' (current)' : ''}";
     } else {
       return _monthNamesLong[this.index - 1];
     }
   }
 
   String getShortName() {
-    assert(this != null);
     final index = this == Month.Current ? getCurrentMonth() : this.index;
     return _monthNamesShort[index - 1];
   }
@@ -71,7 +68,7 @@ extension MonthExtensions on Month {
 
 extension IntExtensions on int {
   Month toMonth() {
-    assert(this != null && this >= 0 && this < Month.values.length);
+    assert(this >= 0 && this < Month.values.length);
     return Month.values[this];
   }
 }
