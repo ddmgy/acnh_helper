@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:acnh_helper/calendar_options.dart';
-import 'package:acnh_helper/hemisphere.dart';
 import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/ui/art/art_screen.dart';
 import 'package:acnh_helper/ui/bug/bug_screen.dart';
@@ -40,111 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
         final overflowActions = [
           ...body.actions,
           if (body.actions.length > 0) MenuAction.divider(),
-          MenuAction(
-            title: "${prefs.calendarOptions}",
-            icon: Icon(Icons.calendar_today),
-            onPressed: () async {
-              CalendarOptions calendarOptions = await showDialog<CalendarOptions>(
-                context: context,
-                builder: (context) {
-                  int month = prefs.preferredMonth;
-                  Hemisphere hemisphere = prefs.preferredHemisphere;
-
-                  return AlertDialog(
-                    title: Text(
-                      "Change calendar options",
-                      style: context.titleTextStyle(),
-                    ),
-                    content: StatefulBuilder(
-                      builder: (context, setState) {
-                        return ListView(
-                          children: [
-                            ListTile(
-                              title: Text(
-                                "Month",
-                                style: context.titleTextStyle(),
-                              ),
-                              trailing: DropdownButton<int>(
-                                value: month,
-                                onChanged: (int value) {
-                                  setState(() {
-                                    month = value;
-                                  });
-                                },
-                                items: List.generate(13, (i) {
-                                  String text;
-                                  if (i == 0) {
-                                    int _month = getCurrentMonth();
-                                    text = "${getMonthName(_month)} (current)";
-                                  } else {
-                                    text = "${getMonthName(i)}";
-                                  }
-                                  return DropdownMenuItem<int>(
-                                    value: i,
-                                    child: Text(
-                                      text,
-                                      style: context.subtitleTextStyle(),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                            ListTile(
-                              title: Text(
-                                "Hemisphere",
-                                style: context.titleTextStyle(),
-                              ),
-                              trailing: DropdownButton<Hemisphere>(
-                                value: hemisphere,
-                                onChanged: (Hemisphere value) {
-                                  setState(() {
-                                    hemisphere = value;
-                                  });
-                                },
-                                items: Hemisphere.values.map((h) {
-                                  return DropdownMenuItem<Hemisphere>(
-                                    value: h,
-                                    child: Text(
-                                      h.getName(),
-                                      style: context.subtitleTextStyle(),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                    actions: [
-                      FlatButton(
-                        child: Text(
-                          "Cancel",
-                          style: context.titleTextStyle(),
-                        ),
-                        onPressed: () => Navigator.of(context).pop(null),
-                      ),
-                      FlatButton(
-                        child: Text(
-                          "Save",
-                          style: context.titleTextStyle(),
-                        ),
-                        onPressed: () => Navigator.of(context).pop(CalendarOptions(
-                          month: month,
-                          hemisphere: hemisphere,
-                        )),
-                      ),
-                    ],
-                  );
-                },
-              );
-
-              if (calendarOptions != null) {
-                prefs.preferredMonth = calendarOptions.month;
-                prefs.preferredHemisphere = calendarOptions.hemisphere;
-              }
-            },
-          ),
           MenuAction(
             title: "Refresh data",
             icon: Icon(Icons.refresh),

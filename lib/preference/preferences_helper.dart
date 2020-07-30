@@ -132,6 +132,16 @@ class PreferencesHelper {
     final prefs = await preferences;
     prefs.setBool(PreferenceKeys.filterByTileExpanded(itemType), filterByTileExpanded);
   }
+
+  Future<bool> getCalendarTileExpanded(String itemType) async {
+    final prefs = await preferences;
+    return prefs.getBool(PreferenceKeys.calendarTileExpanded(itemType)) ?? false;
+  }
+
+  Future<void> setCalendarTileExpanded(String itemType, bool calendarTileExpanded) async {
+    final prefs = await preferences;
+    prefs.setBool(PreferenceKeys.calendarTileExpanded(itemType), calendarTileExpanded);
+  }
 }
 
 class PreferenceKeys {
@@ -156,6 +166,8 @@ class PreferenceKeys {
   static String sortByTileExpanded(String itemType) => "sort_by_tile_expanded_$itemType";
 
   static String filterByTileExpanded(String itemType) => "filter_by_tile_expanded_$itemType";
+
+  static String calendarTileExpanded(String itemType) => "calendar_tile_expanded_$itemType";
 }
 
 class PreferenceValues {

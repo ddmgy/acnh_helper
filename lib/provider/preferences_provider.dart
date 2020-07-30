@@ -163,6 +163,18 @@ class PreferencesProvider extends ChangeNotifier {
     _prefs.setFilterByTileExpanded(itemType, filterByTileExpanded);
   }
 
+  Map<String, bool> _calendarTileExpandeds = {};
+
+  bool getCalendarTileExpanded(String itemType) {
+    return _calendarTileExpandeds.containsKey(itemType) ? _calendarTileExpandeds[itemType] : false;
+  }
+
+  void setCalendarTileExpanded(String itemType, bool calendarTileExpanded) {
+    _calendarTileExpandeds[itemType] = calendarTileExpanded;
+    notifyListeners();
+    _prefs.setCalendarTileExpanded(itemType, calendarTileExpanded);
+  }
+
   PreferencesProvider() {
     _initPreferences();
   }
@@ -182,6 +194,7 @@ class PreferencesProvider extends ChangeNotifier {
       for (var filterType in FilterType.all) {
         _filterBys[_filterBysKey(itemType, filterType)] = await _prefs.getFilterBy(itemType, filterType);
       }
+      _calendarTileExpandeds[itemType] = await _prefs.getCalendarTileExpanded(itemType);
     }
     notifyListeners();
   }
@@ -194,6 +207,7 @@ class PreferencesProvider extends ChangeNotifier {
     _filterBys.clear();
     _sortByTileExpanded.clear();
     _filterByTileExpanded.clear();
+    _calendarTileExpandeds.clear();
     _initPreferences();
   }
 }

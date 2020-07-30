@@ -12,6 +12,7 @@ import 'package:acnh_helper/provider/museum_items_provider.dart';
 import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/sort_by.dart';
 import 'package:acnh_helper/ui/common/keys.dart';
+import 'package:acnh_helper/ui/filter/calendar_button.dart';
 import 'package:acnh_helper/ui/filter/show_as_list_button.dart';
 import 'package:acnh_helper/utils.dart';
 
@@ -162,6 +163,26 @@ abstract class BaseScreen<P extends MuseumItemsProvider, T extends CommonTraits>
 
       children.add(tile);
     }
+
+    final tile = ExpansionTile(
+      leading: Icon(
+        Icons.calendar_today,
+        color: context.iconColor(),
+      ),
+      title: Text(
+        "Calendar",
+        style: context.titleTextStyle(),
+      ),
+      children: [
+        CalendarMonthButton(),
+        CalendarHemisphereButton(),
+      ],
+      initiallyExpanded: prefs.getCalendarTileExpanded(itemType),
+      onExpansionChanged: (bool expanded) {
+        prefs.setCalendarTileExpanded(itemType, expanded);
+      },
+    );
+    children.add(tile);
 
     return ListView(
       children: children,
