@@ -1,5 +1,6 @@
 import 'package:acnh_helper/calendar_options.dart';
 import 'package:acnh_helper/hemisphere.dart';
+import 'package:acnh_helper/month.dart';
 import 'package:acnh_helper/utils.dart';
 
 /// Traits common to add entries in database
@@ -30,7 +31,7 @@ abstract class AvailabilityTraits {
 
 extension AvailabilityTraitsExtensions on AvailabilityTraits {
   bool isCurrentlyAvailable(CalendarOptions options) {
-    int month = (options.month == 0 ? getCurrentMonth() : options.month) - 1;
+    int month = (options.month == Month.Current ? getCurrentMonth() : options.month.index) - 1;
     if (options.hemisphere == Hemisphere.Northern) {
       return monthsAvailableNorthern[month];
     } else { // Hemisphere.Southern
@@ -39,7 +40,7 @@ extension AvailabilityTraitsExtensions on AvailabilityTraits {
   }
 
   bool isNewlyAvailable(CalendarOptions options) {
-    int month = (options.month == 0 ? getCurrentMonth() : options.month) - 1;
+    int month = (options.month == Month.Current ? getCurrentMonth() : options.month.index) - 1;
     int previousMonth = (month - 1) % 12;
     if (options.hemisphere == Hemisphere.Northern) {
       return !monthsAvailableNorthern[previousMonth] && monthsAvailableNorthern[month];
@@ -49,7 +50,7 @@ extension AvailabilityTraitsExtensions on AvailabilityTraits {
   }
 
   bool isLeavingSoon(CalendarOptions options) {
-    int month = (options.month == 0 ? getCurrentMonth() : options.month) - 1;
+    int month = (options.month == Month.Current ? getCurrentMonth() : options.month.index) - 1;
     int nextMonth = (month + 1) % 12;
     if (options.hemisphere == Hemisphere.Northern) {
       return !monthsAvailableNorthern[nextMonth] && monthsAvailableNorthern[month];

@@ -256,18 +256,3 @@ int getCurrentMonth() {
   var now = DateTime.now();
   return now.month;
 }
-
-String getMonthName(int month) => const [
-  "Jan.",
-  "Feb.",
-  "Mar.",
-  "Apr.",
-  "May",
-  "June",
-  "July",
-  "Aug.",
-  "Sept.",
-  "Oct.",
-  "Nov.",
-  "Dec.",
-][month - 1];

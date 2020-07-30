@@ -4,6 +4,7 @@ import 'package:acnh_helper/calendar_options.dart';
 import 'package:acnh_helper/filter_type.dart';
 import 'package:acnh_helper/hemisphere.dart';
 import 'package:acnh_helper/item_type.dart';
+import 'package:acnh_helper/month.dart';
 import 'package:acnh_helper/preference/preferences_helper.dart';
 import 'package:acnh_helper/sort_by.dart';
 import 'package:acnh_helper/theme/theme_type.dart';
@@ -65,9 +66,9 @@ class PreferencesProvider extends ChangeNotifier {
     _prefs.setShowAsList(itemType, showAsList);
   }
 
-  int _preferredMonth = 0;
-  int get preferredMonth => _preferredMonth;
-  set preferredMonth(int newPreferredMonth) {
+  Month _preferredMonth = Month.Current;
+  Month get preferredMonth => _preferredMonth;
+  set preferredMonth(Month newPreferredMonth) {
     if (newPreferredMonth == _preferredMonth) {
       return;
     }

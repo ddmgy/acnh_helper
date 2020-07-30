@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:acnh_helper/hemisphere.dart';
+import 'package:acnh_helper/month.dart';
 import 'package:acnh_helper/sort_by.dart';
 import 'package:acnh_helper/theme/theme_type.dart';
 
@@ -62,14 +63,14 @@ class PreferencesHelper {
     prefs.setBool(PreferenceKeys.firstFetch(itemType), firstFetch);
   }
 
-  Future<int> getPreferredMonth() async {
+  Future<Month> getPreferredMonth() async {
     final prefs = await preferences;
-    return prefs.getInt(PreferenceKeys.preferredMonth) ?? 0;
+    return (prefs.getInt(PreferenceKeys.preferredMonth) ?? 0).toMonth();
   }
 
-  Future<void> setPreferredMonth(int preferredMonth) async {
+  Future<void> setPreferredMonth(Month preferredMonth) async {
     final prefs = await preferences;
-    prefs.setInt(PreferenceKeys.preferredMonth, preferredMonth);
+    prefs.setInt(PreferenceKeys.preferredMonth, preferredMonth.toInt());
   }
 
   Future<Hemisphere> getPreferredHemisphere() async {

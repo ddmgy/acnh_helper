@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:acnh_helper/calendar_options.dart';
 import 'package:acnh_helper/hemisphere.dart';
+import 'package:acnh_helper/month.dart';
 import 'package:acnh_helper/model/traits.dart';
 import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/utils.dart';
@@ -33,7 +34,7 @@ class MonthsAvailable<T extends AvailabilityTraits> extends StatelessWidget {
               child: CustomPaint(
                 foregroundPainter: _MonthsPainter(
                   months: hemisphere == Hemisphere.Northern ? item.monthsAvailableNorthern : item.monthsAvailableSouthern,
-                  month: calendarOptions.month == 0 ? getCurrentMonth() : calendarOptions.month,
+                  month: calendarOptions.month == Month.Current ? Month.values[getCurrentMonth()] : calendarOptions.month,
                 ),
                 child: Container(),
               ),
@@ -47,7 +48,7 @@ class MonthsAvailable<T extends AvailabilityTraits> extends StatelessWidget {
 
 class _MonthsPainter extends CustomPainter {
   final List<bool> months;
-  final int month;
+  final Month month;
 
   _MonthsPainter({
     this.months,
@@ -56,8 +57,6 @@ class _MonthsPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Draw each individual box with month, indicator of whether item is available that month, and indicator if it is current month
-    // Draw overlay if item is not currently available?
     final cellWidth = size.width / 4;
     final cellHeight = size.height / 3;
     for (int index = 0; index < months.length; index++) {
@@ -71,7 +70,7 @@ class _MonthsPainter extends CustomPainter {
     var paint = Paint();
 
     // Frame
-    if (index == month - 1) {
+    if (index == month.index - 1) {
       if (months[index]) {
         paint.color = Colors.redAccent;
       } else {
@@ -115,7 +114,7 @@ class _MonthsPainter extends CustomPainter {
       fontStyle: FontStyle.italic,
     );
     final textSpan = TextSpan(
-      text: getMonthName(index + 1),
+      text: Month.values[index + 1].getShortName(),
       style: textStyle,
     );
     final textPainter = TextPainter(

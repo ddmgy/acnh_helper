@@ -1,29 +1,23 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:acnh_helper/hemisphere.dart';
-import 'package:acnh_helper/utils.dart';
+import 'package:acnh_helper/month.dart';
 
 class CalendarOptions extends Equatable {
-  final int month;
+  final Month month;
   final Hemisphere hemisphere;
 
   @override
   List<Object> get props => [month, hemisphere];
 
   const CalendarOptions({
-    this.month = 0,
+    this.month = Month.Current,
     this.hemisphere = Hemisphere.Northern,
   }) :
-    assert(month >= 0 && month <= 12, "$month"),
     assert(hemisphere != null, "$hemisphere");
 
   @override
   String toString() {
-    var _month = month;
-    if (month == 0) {
-      _month = getCurrentMonth();
-    }
-
-    return "${getMonthName(_month)}, ${hemisphere.getName()}";
+    return "${month.getName(includeCurrent: false)}, ${hemisphere.getName()}";
   }
 }
