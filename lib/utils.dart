@@ -373,3 +373,8 @@ int getCurrentHour() {
   var now = DateTime.now();
   return now.hour;
 }
+
+double getCurrentTime() {
+  var now = DateTime.now().toLocal();
+  return now.hour + (now.minute / 60);
+}

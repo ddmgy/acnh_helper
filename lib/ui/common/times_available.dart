@@ -18,7 +18,6 @@ class TimesAvailable<T extends AvailabilityTraits> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<PreferencesProvider>(
       builder: (context, prefs, _) {
-        final calendarOptions = prefs.calendarOptions;
         final showTimeAsString = prefs.showTimeAsString;
         final showTimeAs12Hour = prefs.showTimeAs12Hour;
 
@@ -229,6 +228,34 @@ class _TimesPainter extends CustomPainter {
       rect.bottomRight.translate(0, -3),
       paint,
     );
+
+    final topLeft = Offset(
+      rect.left + (rect.width * (getCurrentTime() / 24)),
+      rect.top + 4,
+    );
+    paint.color = Colors.redAccent;
+    paint.strokeWidth = 2;
+    paint.strokeCap = StrokeCap.round;
+    canvas.drawLine(
+      topLeft,
+      topLeft.translate(0, rect.height - 3),
+      paint,
+    );
+
+    paint.style = PaintingStyle.fill;
+    final topArrow = Path();
+    topArrow.moveTo(topLeft.dx, topLeft.dy);
+    topArrow.relativeLineTo(-4, -4);
+    topArrow.relativeLineTo(8, 0);
+    topArrow.relativeLineTo(-4, 4);
+    canvas.drawPath(topArrow, paint);
+
+    final bottomArrow = Path();
+    bottomArrow.moveTo(topLeft.dx, topLeft.dy + rect.height - 4.5);
+    bottomArrow.relativeLineTo(-4, 4);
+    bottomArrow.relativeLineTo(8, 0);
+    bottomArrow.relativeLineTo(-4, -4);
+    canvas.drawPath(bottomArrow, paint);
   }
   
   @override
