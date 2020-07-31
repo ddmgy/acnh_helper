@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -6,8 +8,11 @@ import 'package:acnh_helper/model/villager.dart';
 import 'package:acnh_helper/provider/villagers_provider.dart';
 import 'package:acnh_helper/ui/common/app_colors.dart';
 import 'package:acnh_helper/ui/common/base_details_screen.dart';
+import 'package:acnh_helper/utils.dart';
 
 class VillagerDetailsScreen extends BaseDetailsScreen<VillagersProvider, Villager> {
+  VillagerDetailsScreen({int itemId}): super(itemId: itemId);
+
   @override
   List<InfoButton> interactiveWidgets(BuildContext context, Villager item) {
     final theme = Theme.of(context);
@@ -46,5 +51,19 @@ class VillagerDetailsScreen extends BaseDetailsScreen<VillagersProvider, Village
     ),
   ];
 
-  VillagerDetailsScreen({int itemId}): super(itemId: itemId);
+  @override
+  void performRefresh(BuildContext context) async {
+    final provider = Provider.of<VillagersProvider>(context, listen: false);
+    final dbItem = provider.items.firstWhere((villager) => villager.id == itemId, orElse: () => null);
+    if (dbItem == null) {
+      return;
+    }
+
+    final response = await api.getVillagers(id: itemId);
+    if (response.ok) {
+      final networkItem = Villager.fromNetworkMap(json.decode(response.body))
+        ..isNeighbor = dbItem.isNeighbor;
+      provider.updateItem(networkItem);
+    }
+  }
 }

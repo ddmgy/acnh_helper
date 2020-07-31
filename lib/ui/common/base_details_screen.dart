@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 
+import 'package:acnh_helper/acnhapi.dart';
 import 'package:acnh_helper/model/traits.dart';
 import 'package:acnh_helper/provider/museum_items_provider.dart';
 import 'package:acnh_helper/ui/common/keys.dart';
+import 'package:acnh_helper/ui/common/routes.dart';
 import 'package:acnh_helper/utils.dart';
 
 class InfoButton {
@@ -33,20 +35,35 @@ class InfoCard {
 }
 
 abstract class BaseDetailsScreen<P extends MuseumItemsProvider, T extends CommonTraits> extends StatelessWidget {
+  final api = AcnhApi.instance;
+
   final int itemId;
+
+  BaseDetailsScreen({this.itemId});
 
   List<InfoButton> interactiveWidgets(BuildContext context, T item) => const [];
 
   List<InfoCard> informationWidgets(BuildContext context, T item) => const [];
 
-  BaseDetailsScreen({this.itemId});
+  void performRefresh(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
     final item = context.select<P, T>((provider) => provider.items.firstWhere((i) => i.id == itemId));
+
     return Scaffold(
       appBar: AppBar(
         title: Text(item.name),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () => performRefresh(context),
+          ),
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () => Navigator.of(context).pushNamed(Routes.settings),
+          ),
+        ],
       ),
       body: OrientationBuilder(
         builder: (context, orientation) {

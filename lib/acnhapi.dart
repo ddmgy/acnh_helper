@@ -9,20 +9,20 @@ class AcnhApi {
 
   AcnhApi._();
 
-  Future<http.Response> getArts() async => _get("$_baseUrl/art");
+  Future<http.Response> getArts({int id}) async => _get("$_baseUrl/art", id: id);
 
-  Future<http.Response> getBugs() async => _get("$_baseUrl/bugs");
+  Future<http.Response> getBugs({int id}) async => _get("$_baseUrl/bugs", id: id);
 
-  Future<http.Response> getFishes() async => _get("$_baseUrl/fish");
+  Future<http.Response> getFishes({int id}) async => _get("$_baseUrl/fish", id: id);
 
-  Future<http.Response> getFossils() async => _get("$_baseUrl/fossils");
+  Future<http.Response> getFossils({int id}) async => _get("$_baseUrl/fossils", id: id);
 
-  Future<http.Response> getSeaCreatures() async => _get("$_baseUrl/sea");
+  Future<http.Response> getSeaCreatures({int id}) async => _get("$_baseUrl/sea", id: id);
 
-  Future<http.Response> getVillagers() async => _get("$_baseUrl/villagers");
+  Future<http.Response> getVillagers({int id}) async => _get("$_baseUrl/villagers", id: id);
 
-  Future<http.Response> _get(String uri) async {
-    final response = await _client.get(uri);
+  Future<http.Response> _get(String uri, {int id}) async {
+    final response = await _client.get("$uri/${id != null ? id.toString() : ''}");
     if (response.ok) {
       return response;
     } else {

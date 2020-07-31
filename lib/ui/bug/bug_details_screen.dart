@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -9,8 +11,11 @@ import 'package:acnh_helper/ui/common/app_colors.dart';
 import 'package:acnh_helper/ui/common/base_details_screen.dart';
 import 'package:acnh_helper/ui/common/months_available.dart';
 import 'package:acnh_helper/ui/common/times_available.dart';
+import 'package:acnh_helper/utils.dart';
 
 class BugDetailsScreen extends BaseDetailsScreen<BugsProvider, Bug> {
+  BugDetailsScreen({int itemId}): super(itemId: itemId);
+
   @override
   List<InfoButton> interactiveWidgets(BuildContext context, Bug item) {
     final theme = Theme.of(context);
@@ -77,5 +82,20 @@ class BugDetailsScreen extends BaseDetailsScreen<BugsProvider, Bug> {
     ),
   ];
 
-  BugDetailsScreen({int itemId}): super(itemId: itemId);
+  @override
+  void performRefresh(BuildContext context) async {
+    final provider = Provider.of<BugsProvider>(context, listen: false);
+    final dbItem = provider.items.firstWhere((bug) => bug.id == itemId, orElse: () => null);
+    if (dbItem == null) {
+      return;
+    }
+
+    final response = await api.getBugs(id: itemId);
+    if (response.ok) {
+      final networkItem = Bug.fromNetworkMap(json.decode(response.body))
+        ..found = dbItem.found
+        ..donated = dbItem.donated;
+      provider.updateItem(networkItem);
+    }
+  }
 }
