@@ -162,6 +162,9 @@ extension BoolListExtensions on List<bool> {
       endIndex = indexWhere((m) => !m, startIndex + 1) - 1;
     }
     chunks.add(startIndex);
+    if (endIndex == -2) {
+      endIndex = 11;
+    }
     chunks.add(endIndex);
     startIndex = endIndex + 1;
     while (startIndex < length) {
@@ -171,11 +174,7 @@ extension BoolListExtensions on List<bool> {
         }
         endIndex = indexWhere((m) => !m, startIndex + 1);
         if (endIndex == -1) {
-          if (!first) {
-            endIndex = 12;
-          } else {
-            break;
-          }
+          endIndex = 12;
         }
         chunks.add(startIndex);
         chunks.add(endIndex - 1);
