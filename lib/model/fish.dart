@@ -85,7 +85,7 @@ class Fish implements Mappable, CommonTraits, DonatableTraits, AvailabilityTrait
       donated: false,
       monthsAvailableNorthern: monthsNorthern.toBoolList(12),
       monthsAvailableSouthern: monthsSouthern.toBoolList(12),
-      timesAvailable: times.toBoolList(24),
+      timesAvailable: times.toBoolList(24, offByOne: false),
       location: map["availability"]["location"] as String,
       shadow: map["shadow"] as String,
     );

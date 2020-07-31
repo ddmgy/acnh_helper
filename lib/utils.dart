@@ -119,8 +119,8 @@ extension IntExtensions on int {
 }
 
 extension IntListExtensions on List<int> {
-  List<bool> toBoolList(int length) {
-    return List<bool>.generate(length, (i) => contains(i));
+  List<bool> toBoolList(int length, {bool offByOne = true}) {
+    return List<bool>.generate(length, (i) => contains(i + (offByOne ? 1 : 0)));
   }
 }
 
