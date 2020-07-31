@@ -42,6 +42,38 @@ class SettingsScreen extends StatelessWidget {
                   ],
                 ),
                 PreferenceCategory(
+                  title: "Time",
+                  preferences: [
+                    CheckBoxPreference(
+                      title: "Months available",
+                      value: provider.showMonthsAsString,
+                      summaryOn: "Months will be shown as string",
+                      summaryOff: "Months will be hidden",
+                      onChanged: (bool newShowMonthsAsString) {
+                        provider.showMonthsAsString = newShowMonthsAsString;
+                      },
+                    ),
+                    CheckBoxPreference(
+                      title: "Times available",
+                      value: provider.showTimeAsString,
+                      summaryOn: "Times will be shown as string",
+                      summaryOff: "Times will be hidden",
+                      onChanged: (bool newShowTimeAsString) {
+                        provider.showTimeAsString = newShowTimeAsString;
+                      },
+                    ),
+                    SwitchPreference(
+                      title: "Time format",
+                      value: provider.showTimeAs12Hour,
+                      summaryOn: "12-hour (8AM - 4PM)",
+                      summaryOff: "24-hour (08 - 16)",
+                      onChanged: (bool newShowTimeAs12Hour) {
+                        provider.showTimeAs12Hour = newShowTimeAs12Hour;
+                      },
+                    ),
+                  ],
+                ),
+                PreferenceCategory(
                   title: "Advanced",
                   preferences: [
                     TextPreference(

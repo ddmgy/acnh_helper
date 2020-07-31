@@ -85,7 +85,7 @@ class SeaCreature implements Mappable, CommonTraits, DonatableTraits, Availabili
       donated: false,
       monthsAvailableNorthern: monthsNorthern.toBoolList(12),
       monthsAvailableSouthern: monthsSouthern.toBoolList(12),
-      timesAvailable: times.toBoolList(24),
+      timesAvailable: times.toBoolList(24, offByOne: false),
       shadow: map["shadow"] as String,
       speed: map["speed"] as String,
     );

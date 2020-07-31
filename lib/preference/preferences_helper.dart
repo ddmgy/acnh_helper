@@ -142,6 +142,36 @@ class PreferencesHelper {
     final prefs = await preferences;
     prefs.setBool(PreferenceKeys.calendarTileExpanded(itemType), calendarTileExpanded);
   }
+
+  Future<bool> getShowMonthsAsString() async {
+    final prefs = await preferences;
+    return prefs.getBool(PreferenceKeys.showMonthsAsString) ?? true;
+  }
+
+  Future<void> setShowMonthsAsString(bool showMonthsAsString) async {
+    final prefs = await preferences;
+    prefs.setBool(PreferenceKeys.showMonthsAsString, showMonthsAsString);
+  }
+
+  Future<bool> getShowTimeAsString() async {
+    final prefs = await preferences;
+    return prefs.getBool(PreferenceKeys.showTimeAsString) ?? true;
+  }
+
+  Future<void> setShowTimeAsString(bool showTimeAsString) async {
+    final prefs = await preferences;
+    prefs.setBool(PreferenceKeys.showTimeAsString, showTimeAsString);
+  }
+
+  Future<bool> getShowTimeAs12Hour() async {
+    final prefs = await preferences;
+    return prefs.getBool(PreferenceKeys.showTimeAs12Hour) ?? true;
+  }
+
+  Future<void> setShowTimeAs12Hour(bool showTimeAs12Hour) async {
+    final prefs = await preferences;
+    prefs.setBool(PreferenceKeys.showTimeAs12Hour, showTimeAs12Hour);
+  }
 }
 
 class PreferenceKeys {
@@ -168,6 +198,12 @@ class PreferenceKeys {
   static String filterByTileExpanded(String itemType) => "filter_by_tile_expanded_$itemType";
 
   static String calendarTileExpanded(String itemType) => "calendar_tile_expanded_$itemType";
+
+  static String get showMonthsAsString => "show_months_as_string";
+
+  static String get showTimeAsString => "show_time_as_string";
+
+  static String get showTimeAs12Hour => "show_time_as_12_hour";
 }
 
 class PreferenceValues {

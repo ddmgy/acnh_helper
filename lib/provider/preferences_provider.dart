@@ -175,6 +175,39 @@ class PreferencesProvider extends ChangeNotifier {
     _prefs.setCalendarTileExpanded(itemType, calendarTileExpanded);
   }
 
+  bool _showMonthsAsString = true;
+  bool get showMonthsAsString => _showMonthsAsString;
+  set showMonthsAsString(bool newShowMonthsAsString) {
+    if (newShowMonthsAsString == _showMonthsAsString) {
+      return;
+    }
+    _showMonthsAsString = newShowMonthsAsString;
+    notifyListeners();
+    _prefs.setShowMonthsAsString(_showMonthsAsString);
+  }
+
+  bool _showTimeAsString = true;
+  bool get showTimeAsString => _showTimeAsString;
+  set showTimeAsString(bool newShowTimeAsString) {
+    if (newShowTimeAsString == _showTimeAsString) {
+      return;
+    }
+    _showTimeAsString = newShowTimeAsString;
+    notifyListeners();
+    _prefs.setShowTimeAsString(_showTimeAsString);
+  }
+
+  bool _showTimeAs12Hour = true;
+  bool get showTimeAs12Hour => _showTimeAs12Hour;
+  set showTimeAs12Hour(bool newShowTimeAs12Hour) {
+    if (newShowTimeAs12Hour == _showTimeAs12Hour) {
+      return;
+    }
+    _showTimeAs12Hour = newShowTimeAs12Hour;
+    notifyListeners();
+    _prefs.setShowTimeAs12Hour(_showTimeAs12Hour);
+  }
+
   PreferencesProvider() {
     _initPreferences();
   }
@@ -196,6 +229,9 @@ class PreferencesProvider extends ChangeNotifier {
       }
       _calendarTileExpandeds[itemType] = await _prefs.getCalendarTileExpanded(itemType);
     }
+    _showMonthsAsString = await _prefs.getShowMonthsAsString();
+    _showTimeAsString = await _prefs.getShowTimeAsString();
+    _showTimeAs12Hour = await _prefs.getShowTimeAs12Hour();
     notifyListeners();
   }
 
