@@ -11,6 +11,7 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 - Add option to view times as 12-hour (3PM) or 24-hour (15:00) time.
 ### Fixed
 - Fix for off-by-one issue when getting availability, which led to incorrectly showing the months that an item was available.
+- Progress bars on Progress screen will now show even if they are unable to load items.
 
 ## [0.5.0] - 2020-07-30
 ### Changed

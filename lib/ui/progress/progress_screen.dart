@@ -131,8 +131,8 @@ class ProgressScreenGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final foundPercent = progressItem.found / progressItem.foundTotal;
-    final donatedPercent = progressItem.donated / progressItem.donatedTotal;
+    final foundPercent = progressItem.foundTotal > 0 ? progressItem.found / progressItem.foundTotal : null;
+    final donatedPercent = progressItem.donatedTotal > 0 ? progressItem.donated / progressItem.donatedTotal : null;
 
     return Stack(
       children: [
@@ -274,11 +274,13 @@ class _ListItemProgressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final percent = total > 0 ? count / total : null;
+
     return Row(
       children: [
         Expanded(
           child: LinearProgressIndicator(
-            value: count / total,
+            value: percent,
             valueColor: AlwaysStoppedAnimation<Color>(color),
           ),
           flex: 5,
