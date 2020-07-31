@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 
+import 'package:acnh_helper/month.dart';
+
 /// Expand paths beginning with '~' or '~user".
 ///
 /// Based on Python's os.path.expanduser.
@@ -116,6 +118,16 @@ extension IntExtensions on int {
   bool toBool() {
     return this == 1;
   }
+
+  String to12HourTimeString() {
+    final hour = (this % 12 == 0) ? 12 : (this % 12);
+    final suffix = (this < 12) ? "AM" : "PM";
+    return "$hour$suffix";
+  }
+
+  String to24HourTimeString() {
+    return "${this.toString().padLeft(2, '0')}:00";
+  }
 }
 
 extension IntListExtensions on List<int> {
@@ -133,6 +145,108 @@ extension BoolListExtensions on List<bool> {
       }
     }
     return n;
+  }
+
+  String getMonthsAsString() {
+    if (every((m) => m)) {
+      return "All year";
+    }
+    final List<int> chunks = [];
+    var startIndex;
+    var endIndex;
+    if (first && last) {
+      startIndex = lastIndexWhere((m) => !m) + 1;
+      endIndex = indexWhere((m) => !m) - 1;
+    } else {
+      startIndex = indexWhere((m) => m);
+      endIndex = indexWhere((m) => !m, startIndex + 1) - 1;
+    }
+    chunks.add(startIndex);
+    chunks.add(endIndex);
+    startIndex = endIndex + 1;
+    while (startIndex < length) {
+      if (this[startIndex]) {
+        if (chunks.contains(startIndex)) {
+          break;
+        }
+        endIndex = indexWhere((m) => !m, startIndex + 1);
+        if (endIndex == -1) {
+          if (!first) {
+            endIndex = 12;
+          } else {
+            break;
+          }
+        }
+        chunks.add(startIndex);
+        chunks.add(endIndex - 1);
+        startIndex = endIndex;
+      }
+      startIndex++;
+    }
+    final sb = StringBuffer();
+    for (int i = 0; i < chunks.length ~/ 2; i++) {
+      if (i > 0) {
+        sb.write(", ");
+      }
+      sb.write("${(chunks[i * 2] + 1).toMonth().getName(includeCurrent: false)} - ${(chunks[i * 2 + 1] + 1).toMonth().getName(includeCurrent: false)}");
+    }
+    return sb.toString();
+  }
+
+  String getTimesAsString({bool showTimeAs12Hour}) {
+    if (every((h) => h)) {
+      return "All day";
+    }
+    final List<int> chunks = [];
+    var startIndex;
+    var endIndex;
+    bool pastMidnight;
+    if (first && last) {
+      startIndex = indexWhere((h) => !h);
+      startIndex = indexWhere((h) => h, startIndex + 1);
+      pastMidnight = true;
+    } else {
+      startIndex = indexWhere((h) => h);
+      pastMidnight = false;
+    }
+    endIndex = indexWhere((h) => !h, startIndex + 1);
+    chunks.add(startIndex);
+    if (endIndex == -1) {
+      endIndex = indexWhere((h) => !h);
+    }
+    chunks.add(endIndex);
+    startIndex = endIndex + 1;
+    while (startIndex < length) {
+      if (this[startIndex]) {
+        if (chunks.contains(startIndex)) {
+          break;
+        }
+        endIndex = indexWhere((h) => !h, startIndex + 1);
+        if (endIndex == -1) {
+          if (pastMidnight) {
+            chunks.add(startIndex);
+            chunks.add(indexWhere((h) => !h));
+            break;
+          }
+        }
+        chunks.add(startIndex);
+        chunks.add(endIndex);
+        startIndex = endIndex;
+      }
+      startIndex++;
+    }
+    final sb = StringBuffer();
+    for (int i = 0; i < chunks.length ~/ 2; i++) {
+      if (i > 0) {
+        sb.write(", ");
+      }
+      if (showTimeAs12Hour) {
+        sb.write("${chunks[i * 2].to12HourTimeString()} - ${chunks[i * 2 + 1].to12HourTimeString()}");
+      } else {
+        sb.write("${chunks[i * 2].to24HourTimeString()} - ${chunks[i * 2 + 1].to24HourTimeString()}");
+      }
+    }
+    return sb.toString();
   }
 }
 
@@ -250,9 +364,13 @@ extension ColorExtensions on Color {
   }
 }
 
-// TODO: Migrate to using Month enum in lib/month.dart, rather than an integer
-
 int getCurrentMonth() {
   var now = DateTime.now();
   return now.month;
+}
+
+
+int getCurrentHour() {
+  var now = DateTime.now();
+  return now.hour;
 }

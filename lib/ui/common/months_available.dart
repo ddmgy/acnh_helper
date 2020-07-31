@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:acnh_helper/calendar_options.dart';
 import 'package:acnh_helper/hemisphere.dart';
 import 'package:acnh_helper/month.dart';
 import 'package:acnh_helper/model/traits.dart';
@@ -21,24 +20,38 @@ class MonthsAvailable<T extends AvailabilityTraits> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<PreferencesProvider, CalendarOptions>(
-      selector: (context, provider) => provider.calendarOptions,
-      builder: (context, calendarOptions, _) {
+    return Consumer<PreferencesProvider>(
+      builder: (context, prefs, _) {
+        final calendarOptions = prefs.calendarOptions;
+        final months = hemisphere == Hemisphere.Northern ? item.monthsAvailableNorthern : item.monthsAvailableSouthern;
+        final showMonthsAsString = prefs.showMonthsAsString;
+
         return Center(
-          child: Container(
-            height: 80,
-            width: 200,
-            padding: const EdgeInsets.all(4),
-            color: Color(0xFFEAE19A),
-            child: Center(
-              child: CustomPaint(
-                foregroundPainter: _MonthsPainter(
-                  months: hemisphere == Hemisphere.Northern ? item.monthsAvailableNorthern : item.monthsAvailableSouthern,
-                  month: calendarOptions.month == Month.Current ? Month.values[getCurrentMonth()] : calendarOptions.month,
+          child: Column(
+            children: [
+              if (showMonthsAsString) Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  months.getMonthsAsString(),
+                  style: context.subtitleTextStyle(),
                 ),
-                child: Container(),
               ),
-            ),
+              Container(
+                height: 80,
+                width: 200,
+                padding: const EdgeInsets.all(4),
+                color: Color(0xFFEAE19A),
+                child: Center(
+                  child: CustomPaint(
+                    foregroundPainter: _MonthsPainter(
+                      months: months,
+                      month: calendarOptions.month == Month.Current ? Month.values[getCurrentMonth()] : calendarOptions.month,
+                    ),
+                    child: Container(),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },

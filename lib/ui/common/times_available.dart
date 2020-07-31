@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:acnh_helper/calendar_options.dart';
 import 'package:acnh_helper/model/traits.dart';
 import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/utils.dart';
@@ -17,23 +16,37 @@ class TimesAvailable<T extends AvailabilityTraits> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<PreferencesProvider, CalendarOptions>(
-      selector: (context, provider) => provider.calendarOptions,
-      builder: (context, calendarOptions, _) {
+    return Consumer<PreferencesProvider>(
+      builder: (context, prefs, _) {
+        final calendarOptions = prefs.calendarOptions;
+        final showTimeAsString = prefs.showTimeAsString;
+        final showTimeAs12Hour = prefs.showTimeAs12Hour;
+
         return Center(
-          child: Container(
-            height: 56,
-            width: 208,
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            color: Color(0xFFEAE19A),
-            child: Center(
-              child: CustomPaint(
-                foregroundPainter: _TimesPainter(
-                  times: item.timesAvailable,
+          child: Column(
+            children: [
+              if (showTimeAsString) Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  item.timesAvailable.getTimesAsString(showTimeAs12Hour: showTimeAs12Hour),
+                  style: context.subtitleTextStyle(),
                 ),
-                child: Container(),
               ),
-            ),
+              Container(
+                height: 56,
+                width: 208,
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                color: Color(0xFFEAE19A),
+                child: Center(
+                  child: CustomPaint(
+                    foregroundPainter: _TimesPainter(
+                      times: item.timesAvailable,
+                    ),
+                    child: Container(),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
