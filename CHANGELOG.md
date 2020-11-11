@@ -6,6 +6,12 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [0.7.1] - 2020-11-10
+### Added
+- Add Windows, Linux, and iOS targets.
+### Changed
+- Update dependencies.
+
 ## [0.7.0] - 2020-07-31
 ### Added
 - Added refresh and settings buttons to details screens.

@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: "AC:NH Helper",
           theme: theme,
+          debugShowCheckedModeBanner: false,
           initialRoute: Routes.home,
           onGenerateRoute: (RouteSettings settings) {
             switch (settings.name) {
