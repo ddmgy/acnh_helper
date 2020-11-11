@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.ddmgy.acnhhelper">
+    package="io.ddmgy.acnh_helper">
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -8,7 +8,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="acnhhelper"
+        android:label="AC:NH Helper"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

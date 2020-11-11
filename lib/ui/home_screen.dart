@@ -123,25 +123,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
 
-        drawerChildren.add(
-          ListTile(
-            title: Text(
-              "About",
-              style: context.titleTextStyle(),
-            ),
-            dense: true,
-            onTap: () {
-              Navigator.of(context).pop();
-              showAboutDialog(
-                context: context,
-                applicationName: "AC:NH helper",
-                applicationVersion: "0.7.0",
-                applicationLegalese: "© 2020 David Mougey",
-              );
-            },
-          ),
-        );
-
         return Scaffold(
           appBar: AppBar(
             title: Text(body.name),

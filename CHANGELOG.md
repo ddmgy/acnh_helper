@@ -6,6 +6,13 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [0.7.2] - 2020-11-11
+### Added
+- Add option to view changelog in settings.
+### Changed
+- Rewrite settings screen for new preferences_ui library.
+- Remove About dialog, add Settings > About > Licenses.
+
 ## [0.7.1] - 2020-11-10
 ### Added
 - Add Windows, Linux, and iOS targets.

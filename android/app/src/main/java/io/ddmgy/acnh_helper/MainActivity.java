@@ -1,4 +1,4 @@
-package io.ddmgy.acnhhelper;
+package io.ddmgy.acnh_helper;
 
 import io.flutter.embedding.android.FlutterActivity;
 
