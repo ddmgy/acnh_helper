@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:acnh_helper/item_type.dart';
 import 'package:acnh_helper/model/fossil.dart';
 import 'package:acnh_helper/provider/fossils_provider.dart';
 import 'package:acnh_helper/ui/common/app_colors.dart';
@@ -11,6 +12,9 @@ import 'package:acnh_helper/ui/common/base_details_screen.dart';
 import 'package:acnh_helper/utils.dart';
 
 class FossilDetailsScreen extends BaseDetailsScreen<FossilsProvider, Fossil> {
+  @override
+  String get itemType => ItemType.fossils;
+
   FossilDetailsScreen({int itemId}): super(itemId: itemId);
 
   @override

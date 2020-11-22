@@ -7,6 +7,7 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - Add new badges/chips to show if an item is newly available (was not available previous month) or leaving soon (will not be available next month).
+- Add hero transition when navigating between home screen and details screen. Thumbnail/image widget now transitions between positions on those screens.
 ### Fixed
 - Displays in progress screen will now properly update, instead of endlessly loading.
 ### Changed

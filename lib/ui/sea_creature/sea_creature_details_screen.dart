@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:acnh_helper/hemisphere.dart';
+import 'package:acnh_helper/item_type.dart';
 import 'package:acnh_helper/model/sea_creature.dart';
 import 'package:acnh_helper/provider/sea_creatures_provider.dart';
 import 'package:acnh_helper/ui/common/app_colors.dart';
@@ -14,6 +15,9 @@ import 'package:acnh_helper/ui/common/times_available.dart';
 import 'package:acnh_helper/utils.dart';
 
 class SeaCreatureDetailsScreen extends BaseDetailsScreen<SeaCreaturesProvider, SeaCreature> {
+  @override
+  String get itemType => ItemType.seaCreatures;
+
   SeaCreatureDetailsScreen({int itemId}): super(itemId: itemId);
 
   @override

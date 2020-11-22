@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:acnh_helper/item_type.dart';
 import 'package:acnh_helper/model/art.dart';
 import 'package:acnh_helper/provider/arts_provider.dart';
 import 'package:acnh_helper/ui/common/app_colors.dart';
@@ -11,6 +12,9 @@ import 'package:acnh_helper/ui/common/base_details_screen.dart';
 import 'package:acnh_helper/utils.dart';
 
 class ArtDetailsScreen extends BaseDetailsScreen<ArtsProvider, Art> {
+  @override
+  String get itemType => ItemType.arts;
+
   ArtDetailsScreen({int itemId}): super(itemId: itemId);
 
   @override

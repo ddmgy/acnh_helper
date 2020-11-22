@@ -7,6 +7,7 @@ import 'package:acnh_helper/acnhapi.dart';
 import 'package:acnh_helper/model/traits.dart';
 import 'package:acnh_helper/provider/museum_items_provider.dart';
 import 'package:acnh_helper/ui/common/keys.dart';
+import 'package:acnh_helper/ui/common/museum_item_thumbnail.dart';
 import 'package:acnh_helper/ui/common/routes.dart';
 import 'package:acnh_helper/utils.dart';
 
@@ -38,6 +39,8 @@ abstract class BaseDetailsScreen<P extends MuseumItemsProvider, T extends Common
   final api = AcnhApi.instance;
 
   final int itemId;
+
+  String get itemType;
 
   BaseDetailsScreen({this.itemId});
 
@@ -146,10 +149,9 @@ abstract class BaseDetailsScreen<P extends MuseumItemsProvider, T extends Common
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(4),
-              child: CachedNetworkImage(
-                imageUrl: item.imageUri,
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+              child: MuseumItemImage(
+                imageUri: item.imageUri,
+                tag: "$itemType#$itemId",
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -174,10 +176,9 @@ abstract class BaseDetailsScreen<P extends MuseumItemsProvider, T extends Common
     final theme = Theme.of(context);
 
     List<Widget> children = [
-      CachedNetworkImage(
-        imageUrl: item.imageUri,
-        placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => Icon(Icons.error),
+      MuseumItemImage(
+        imageUri: item.imageUri,
+        tag: "$itemType#$itemId",
         fit: BoxFit.fitWidth,
       ),
     ];

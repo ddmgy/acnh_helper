@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:acnh_helper/hemisphere.dart';
+import 'package:acnh_helper/item_type.dart';
 import 'package:acnh_helper/model/bug.dart';
 import 'package:acnh_helper/provider/bugs_provider.dart';
 import 'package:acnh_helper/ui/common/app_colors.dart';
@@ -14,6 +15,9 @@ import 'package:acnh_helper/ui/common/times_available.dart';
 import 'package:acnh_helper/utils.dart';
 
 class BugDetailsScreen extends BaseDetailsScreen<BugsProvider, Bug> {
+  @override
+  String get itemType => ItemType.bugs;
+
   BugDetailsScreen({int itemId}): super(itemId: itemId);
 
   @override

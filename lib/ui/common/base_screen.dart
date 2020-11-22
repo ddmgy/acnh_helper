@@ -12,6 +12,7 @@ import 'package:acnh_helper/provider/museum_items_provider.dart';
 import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/sort_by.dart';
 import 'package:acnh_helper/ui/common/keys.dart';
+import 'package:acnh_helper/ui/common/museum_item_thumbnail.dart';
 import 'package:acnh_helper/ui/filter/calendar_button.dart';
 import 'package:acnh_helper/ui/filter/show_as_list_button.dart';
 import 'package:acnh_helper/utils.dart';
@@ -97,6 +98,7 @@ abstract class BaseScreen<P extends MuseumItemsProvider, T extends CommonTraits>
         filter: (T item) => getSearchFilters(item),
         builder: (T item) => BaseScreenListItem<T>(
           item: item,
+          itemType: itemType,
           onPressed: () {
             navigateToDetailsScreen(context, item);
           },
@@ -405,6 +407,7 @@ abstract class BaseScreen<P extends MuseumItemsProvider, T extends CommonTraits>
               padding: const EdgeInsets.only(top: 2, bottom: 2),
               child: BaseScreenListItem<T>(
                 item: items[index],
+                itemType: itemType,
                 infoChips: listInformationWidgets(context, items[index]),
                 onPressed: () {
                   navigateToDetailsScreen(context, items[index]);
@@ -417,6 +420,7 @@ abstract class BaseScreen<P extends MuseumItemsProvider, T extends CommonTraits>
             itemCount: items.length,
             itemBuilder: (context, index) => BaseScreenGridItem<T>(
               item: items[index],
+              itemType: itemType,
               infoBadges: gridInformationWidgets(context, items[index]),
               onPressed: () {
                 navigateToDetailsScreen(context, items[index]);
@@ -442,12 +446,14 @@ abstract class BaseScreen<P extends MuseumItemsProvider, T extends CommonTraits>
 
 class BaseScreenGridItem<T extends CommonTraits> extends StatelessWidget {
   final T item;
+  final String itemType;
   final VoidCallback onPressed;
   final List<InfoBadge> infoBadges;
 
   BaseScreenGridItem({
     Key key,
     @required this.item,
+    @required this.itemType,
     @required this.onPressed,
     @required this.infoBadges,
   }): super(key: key);
@@ -497,10 +503,9 @@ class BaseScreenGridItem<T extends CommonTraits> extends StatelessWidget {
           left: 0,
           top: 0,
           right: 0,
-          child: CachedNetworkImage(
-            imageUrl: item.thumbnailUri,
-            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
+          child: MuseumItemImage(
+            imageUri: item.thumbnailUri,
+            tag: "$itemType#${item.id}",
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -539,12 +544,14 @@ class BaseScreenGridItem<T extends CommonTraits> extends StatelessWidget {
 
 class BaseScreenListItem<T extends CommonTraits> extends StatelessWidget {
   final T item;
+  final String itemType;
   final VoidCallback onPressed;
   final List<InfoChip> infoChips;
 
   BaseScreenListItem({
     Key key,
     @required this.item,
+    @required this.itemType,
     @required this.onPressed,
     @required this.infoChips,
   }): super(key: key);
@@ -589,10 +596,9 @@ class BaseScreenListItem<T extends CommonTraits> extends StatelessWidget {
                 SizedBox(
                   width: 72,
                   height: 72,
-                  child: CachedNetworkImage(
-                    imageUrl: item.thumbnailUri,
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
+                  child: MuseumItemImage(
+                    imageUri: item.thumbnailUri,
+                    tag: "$itemType#${item.id}",
                     fit: BoxFit.contain,
                   ),
                 ),
