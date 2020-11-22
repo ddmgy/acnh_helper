@@ -137,7 +137,7 @@ class SettingsScreen extends StatelessWidget {
               children: [
                 Preference(
                   title: "Version",
-                  summary: "0.7.2",
+                  summary: "0.8.0",
                   onTap: () {}, // Just to show feedback like siblings
                 ),
                 Preference(
@@ -151,7 +151,7 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () => showLicensePage(
                     context: context,
                     applicationName: "AC:NH helper",
-                    applicationVersion: "0.7.2",
+                    applicationVersion: "0.8.0",
                     applicationLegalese: "© 2020 David Mougey",
                   ),
                 ),
