@@ -13,6 +13,7 @@ import 'package:acnh_helper/ui/home_screen.dart';
 import 'package:acnh_helper/ui/art/art_details_screen.dart';
 import 'package:acnh_helper/ui/bug/bug_details_screen.dart';
 import 'package:acnh_helper/ui/common/routes.dart';
+import 'package:acnh_helper/ui/fade_transition_page_route.dart';
 import 'package:acnh_helper/ui/setting/settings_screen.dart';
 import 'package:acnh_helper/ui/fish/fish_details_screen.dart';
 import 'package:acnh_helper/ui/fossil/fossil_details_screen.dart';
@@ -65,61 +66,61 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: (RouteSettings settings) {
             switch (settings.name) {
               case Routes.home:
-                return MaterialPageRoute(
+                return FadeTransitionPageRoute(
                   settings: settings,
                   builder: (_) => HomeScreen(),
                 );
                 break;
               case Routes.artDetails:
                 final id = settings.arguments as int;
-                return MaterialPageRoute(
+                return FadeTransitionPageRoute(
                   settings: settings,
                   builder: (_) => ArtDetailsScreen(itemId: id),
                 );
                 break;
               case Routes.bugDetails:
                 final id = settings.arguments as int;
-                return MaterialPageRoute(
+                return FadeTransitionPageRoute(
                   settings: settings,
                   builder: (_) => BugDetailsScreen(itemId: id),
                 );
                 break;
               case Routes.fishDetails:
                 final id = settings.arguments as int;
-                return MaterialPageRoute(
+                return FadeTransitionPageRoute(
                   settings: settings,
                   builder: (_) => FishDetailsScreen(itemId: id),
                 );
                 break;
               case Routes.fossilDetails:
                 final id = settings.arguments as int;
-                return MaterialPageRoute(
+                return FadeTransitionPageRoute(
                   settings: settings,
                   builder: (_) => FossilDetailsScreen(itemId: id),
                 );
                 break;
               case Routes.seaCreatureDetails:
                 final id = settings.arguments as int;
-                return MaterialPageRoute(
+                return FadeTransitionPageRoute(
                   settings: settings,
                   builder: (_) => SeaCreatureDetailsScreen(itemId: id),
                 );
                 break;
               case Routes.villagerDetails:
                 final id = settings.arguments as int;
-                return MaterialPageRoute(
+                return FadeTransitionPageRoute(
                   settings: settings,
                   builder: (_) => VillagerDetailsScreen(itemId: id),
                 );
                 break;
               case Routes.settings:
-                return MaterialPageRoute(
+                return FadeTransitionPageRoute(
                   settings: settings,
                   builder: (_) => SettingsScreen(),
                 );
                 break;
               case Routes.progress:
-                return MaterialPageRoute(
+                return FadeTransitionPageRoute(
                   settings: settings,
                   builder: (_) => ProgressScreen(),
                 );

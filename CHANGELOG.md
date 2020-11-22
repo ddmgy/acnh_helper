@@ -12,6 +12,7 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 ### Changed
 - Change unused colors to use for newly available/leaving soon widgets.
 - Remove unnecessary "Sell price (Flick)" info widget on sea creature details screen, as Flick does not purchase sea creatures.
+- Change transition between pages to fade transition.
 
 ## [0.7.2] - 2020-11-11
 ### Added
