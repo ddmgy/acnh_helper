@@ -80,10 +80,6 @@ class SeaCreatureDetailsScreen extends BaseDetailsScreen<SeaCreaturesProvider, S
       title: "Sell price",
       subtitle: "${item.sellPrice}",
     ),
-    InfoCard(
-      title: "Sell price (Flick)",
-      subtitle: "${(item.sellPrice * 1.5).floor()}",
-    ),
   ];
 
   @override
