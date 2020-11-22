@@ -50,11 +50,11 @@ class ProgressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bugs = Provider.of<BugsProvider>(context, listen: false);
-    final fishes = Provider.of<FishesProvider>(context, listen: false);
-    final seaCreatures = Provider.of<SeaCreaturesProvider>(context, listen: false);
-    final fossils = Provider.of<FossilsProvider>(context, listen: false);
-    final arts = Provider.of<ArtsProvider>(context, listen: false);
+    final bugs = Provider.of<BugsProvider>(context, listen: true);
+    final fishes = Provider.of<FishesProvider>(context, listen: true);
+    final seaCreatures = Provider.of<SeaCreaturesProvider>(context, listen: true);
+    final fossils = Provider.of<FossilsProvider>(context, listen: true);
+    final arts = Provider.of<ArtsProvider>(context, listen: true);
 
     return Consumer<PreferencesProvider>(
       builder: (context, prefs, _) {

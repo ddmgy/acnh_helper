@@ -7,6 +7,8 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - Add new badges/chips to show if an item is newly available (was not available previous month) or leaving soon (will not be available next month).
+### Fixed
+- Displays in progress screen will now properly update, instead of endlessly loading.
 ### Changed
 - Change unused colors to use for newly available/leaving soon widgets.
 - Remove unnecessary "Sell price (Flick)" info widget on sea creature details screen, as Flick does not purchase sea creatures.
