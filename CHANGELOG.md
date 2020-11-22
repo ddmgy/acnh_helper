@@ -5,7 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- Add new badges/chips to show if an item is newly available (was not available previous month) or leaving soon (will not be available next month).
 ### Changed
+- Change unused colors to use for newly available/leaving soon widgets.
 - Remove unnecessary "Sell price (Flick)" info widget on sea creature details screen, as Flick does not purchase sea creatures.
 
 ## [0.7.2] - 2020-11-11

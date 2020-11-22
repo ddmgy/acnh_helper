@@ -9,7 +9,7 @@ class AppColors {
 
   static const currentlyAvailableColor = Colors.red;
 
-  static const newlyAvailableColor = Colors.pink;
+  static const newlyAvailableColor = Colors.indigo;
 
-  static const leavingSoonColor = Colors.purple;
+  static const leavingSoonColor = Colors.deepPurple;
 }

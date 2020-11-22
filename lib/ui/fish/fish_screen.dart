@@ -105,6 +105,9 @@ class FishScreen extends BaseScreen<FishesProvider, Fish> {
   @override
   List<InfoChip> listInformationWidgets(BuildContext context, Fish item) {
     final calendarOptions = Provider.of<PreferencesProvider>(context, listen: false).calendarOptions;
+    final isCurrentlyAvailable = item.isCurrentlyAvailable(calendarOptions);
+    final isNewlyAvailable = item.isNewlyAvailable(calendarOptions);
+    final isLeavingSoon = item.isLeavingSoon(calendarOptions);
 
     return [
       InfoChip(
@@ -120,7 +123,17 @@ class FishScreen extends BaseScreen<FishesProvider, Fish> {
       InfoChip(
         title: "Available",
         color: AppColors.currentlyAvailableColor,
-        visible: item.isCurrentlyAvailable(calendarOptions),
+        visible: isCurrentlyAvailable && !(isNewlyAvailable || isLeavingSoon),
+      ),
+      InfoChip(
+        title: "New",
+        color: AppColors.newlyAvailableColor,
+        visible: isNewlyAvailable,
+      ),
+      InfoChip(
+        title: "Leaving soon",
+        color: AppColors.leavingSoonColor,
+        visible: isLeavingSoon,
       ),
     ];
   }
@@ -128,6 +141,9 @@ class FishScreen extends BaseScreen<FishesProvider, Fish> {
   @override
   List<InfoBadge> gridInformationWidgets(BuildContext context, Fish item) {
     final calendarOptions = Provider.of<PreferencesProvider>(context, listen: false).calendarOptions;
+    final isCurrentlyAvailable = item.isCurrentlyAvailable(calendarOptions);
+    final isNewlyAvailable = item.isNewlyAvailable(calendarOptions);
+    final isLeavingSoon = item.isLeavingSoon(calendarOptions);
 
     return [
       InfoBadge(
@@ -142,7 +158,17 @@ class FishScreen extends BaseScreen<FishesProvider, Fish> {
       ),
       InfoBadge(
         color: AppColors.currentlyAvailableColor,
-        visible: item.isCurrentlyAvailable(calendarOptions),
+        visible: isCurrentlyAvailable && !(isNewlyAvailable || isLeavingSoon),
+        alignment: Alignment.topLeft,
+      ),
+      InfoBadge(
+        color: AppColors.newlyAvailableColor,
+        visible: isNewlyAvailable,
+        alignment: Alignment.topLeft,
+      ),
+      InfoBadge(
+        color: AppColors.leavingSoonColor,
+        visible: isLeavingSoon,
         alignment: Alignment.topLeft,
       ),
     ];
