@@ -103,7 +103,7 @@ class _ChangelogScreenState extends State<ChangelogScreen> {
           ],
         ),
         actions: [
-          FlatButton(
+          TextButton(
             child: Text(
               "Follow link",
               style: context.subtitleTextStyle(),
@@ -124,7 +124,7 @@ class _ChangelogScreenState extends State<ChangelogScreen> {
               }
             },
           ),
-          FlatButton(
+          TextButton(
             child: Text(
               "OK",
               style: context.subtitleTextStyle(),

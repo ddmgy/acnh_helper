@@ -168,14 +168,14 @@ class SettingsScreen extends StatelessWidget {
                         ),
                       ),
                       actions: [
-                        FlatButton(
+                        TextButton(
                           child: Text(
                             "Cancel",
                             style: context.subtitleTextStyle(fontSize: 14),
                           ),
                           onPressed: () => Navigator.of(context).pop(false),
                         ),
-                        FlatButton(
+                        TextButton(
                           child: Text(
                             "OK",
                             style: context.subtitleTextStyle(fontSize: 14),
@@ -269,11 +269,11 @@ class SettingsScreen extends StatelessWidget {
           onColorChanged: (Color color) => pickerColor = color,
         ),
         actions: [
-          FlatButton(
+          TextButton(
             child: const Text("Cancel"),
             onPressed: () => Navigator.of(context).pop(null),
           ),
-          FlatButton(
+          TextButton(
             child: const Text("OK"),
             onPressed: () => Navigator.of(context).pop(pickerColor),
           ),

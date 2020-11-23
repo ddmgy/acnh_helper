@@ -7,6 +7,8 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - Add ability for user to set colors of badges/chips.
+### Fixed
+- Fix Found/Donated buttons in details screen being displayed without any spacing on desktop.
 
 ## [0.8.0] - 2020-11-22
 ### Added

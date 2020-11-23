@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 
 import 'package:acnh_helper/acnhapi.dart';
@@ -88,14 +87,21 @@ abstract class BaseDetailsScreen<P extends MuseumItemsProvider, T extends Common
     for (var button in interactiveWidgets(context, item)) {
       children.add(
         Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
-          child: RaisedButton(
-            child: Text(
-              button.title,
-              style: context.titleTextStyle(),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: Material(
+            child: InkWell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Center(
+                  child: Text(
+                    button.title,
+                    style: context.titleTextStyle(),
+                  ),
+                ),
+              ),
+              onTap: button.onPressed,
             ),
             color: button.color,
-            onPressed: button.onPressed,
           ),
         ),
       );
@@ -186,14 +192,21 @@ abstract class BaseDetailsScreen<P extends MuseumItemsProvider, T extends Common
     for (var button in interactiveWidgets(context, item)) {
       children.add(
         Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
-          child: RaisedButton(
-            child: Text(
-              button.title,
-              style: context.titleTextStyle(),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: Material(
+            child: InkWell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Center(
+                  child: Text(
+                    button.title,
+                    style: context.titleTextStyle(),
+                  ),
+                ),
+              ),
+              onTap: button.onPressed,
             ),
             color: button.color,
-            onPressed: button.onPressed,
           ),
         ),
       );

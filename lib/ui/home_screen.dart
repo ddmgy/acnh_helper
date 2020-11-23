@@ -57,14 +57,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     actions: [
-                      FlatButton(
+                      TextButton(
                         child: Text(
                           "Cancel",
                           style: context.titleTextStyle(),
                         ),
                         onPressed: () => Navigator.of(context).pop(false),
                       ),
-                      FlatButton(
+                      TextButton(
                         child: Text(
                           "OK",
                           style: context.titleTextStyle(),
