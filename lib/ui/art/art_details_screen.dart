@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:acnh_helper/item_type.dart';
 import 'package:acnh_helper/model/art.dart';
 import 'package:acnh_helper/provider/arts_provider.dart';
-import 'package:acnh_helper/ui/common/app_colors.dart';
+import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/ui/common/base_details_screen.dart';
 import 'package:acnh_helper/utils.dart';
 
@@ -20,10 +20,12 @@ class ArtDetailsScreen extends BaseDetailsScreen<ArtsProvider, Art> {
   @override
   List<InfoButton> interactiveWidgets(BuildContext context, Art item) {
     final theme = Theme.of(context);
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
+
     return [
       InfoButton(
         title: "Found",
-        color: item.found ? AppColors.foundColor : theme.disabledColor,
+        color: item.found ? prefs.foundColor : theme.disabledColor,
         onPressed: () {
           Provider.of<ArtsProvider>(context, listen: false).updateItem(
             item.copyWith(
@@ -34,7 +36,7 @@ class ArtDetailsScreen extends BaseDetailsScreen<ArtsProvider, Art> {
       ),
       InfoButton(
         title: "Donated",
-        color: item.donated ? AppColors.donatedColor : theme.disabledColor,
+        color: item.donated ? prefs.donatedColor : theme.disabledColor,
         onPressed: () {
           Provider.of<ArtsProvider>(context, listen: false).updateItem(
             item.copyWith(

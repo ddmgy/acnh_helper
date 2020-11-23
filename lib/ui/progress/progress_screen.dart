@@ -4,13 +4,12 @@ import 'package:provider/provider.dart';
 
 import 'package:acnh_helper/item_type.dart';
 import 'package:acnh_helper/model/traits.dart';
-import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/provider/arts_provider.dart';
 import 'package:acnh_helper/provider/bugs_provider.dart';
 import 'package:acnh_helper/provider/fishes_provider.dart';
 import 'package:acnh_helper/provider/fossils_provider.dart';
+import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/provider/sea_creatures_provider.dart';
-import 'package:acnh_helper/ui/common/app_colors.dart';
 import 'package:acnh_helper/ui/common/keys.dart';
 import 'package:acnh_helper/ui/common/routes.dart';
 import 'package:acnh_helper/utils.dart';
@@ -131,6 +130,7 @@ class ProgressScreenGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
     final foundPercent = progressItem.foundTotal > 0 ? progressItem.found / progressItem.foundTotal : null;
     final donatedPercent = progressItem.donatedTotal > 0 ? progressItem.donated / progressItem.donatedTotal : null;
 
@@ -165,13 +165,13 @@ class ProgressScreenGridItem extends StatelessWidget {
               Text(
                 "${progressItem.found}/${progressItem.foundTotal}",
                 style: context.subtitleTextStyle().copyWith(
-                  color: AppColors.foundColor,
+                  color: prefs.foundColor,
                 ),
               ),
               Text(
                 "${progressItem.donated}/${progressItem.donatedTotal}",
                 style: context.subtitleTextStyle().copyWith(
-                  color: AppColors.donatedColor,
+                  color: prefs.donatedColor,
                 ),
               ),
             ],
@@ -184,7 +184,7 @@ class ProgressScreenGridItem extends StatelessWidget {
           bottom: 28,
           child: CircularProgressIndicator(
             value: foundPercent,
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.foundColor),
+            valueColor: AlwaysStoppedAnimation<Color>(prefs.foundColor),
             backgroundColor: theme.disabledColor,
             strokeWidth: 8,
           ),
@@ -196,7 +196,7 @@ class ProgressScreenGridItem extends StatelessWidget {
           bottom: 40,
           child: CircularProgressIndicator(
             value: donatedPercent,
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.donatedColor),
+            valueColor: AlwaysStoppedAnimation<Color>(prefs.donatedColor),
             backgroundColor: theme.disabledColor,
             strokeWidth: 8,
           ),
@@ -217,6 +217,7 @@ class ProgressScreenListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
 
     return Material(
       color: theme.cardColor,
@@ -240,12 +241,12 @@ class ProgressScreenListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _ListItemProgressWidget(
-                    color: AppColors.foundColor,
+                    color: prefs.foundColor,
                     count: progressItem.found,
                     total: progressItem.foundTotal,
                   ),
                   _ListItemProgressWidget(
-                    color: AppColors.donatedColor,
+                    color: prefs.donatedColor,
                     count: progressItem.donated,
                     total: progressItem.donatedTotal,
                   ),

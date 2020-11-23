@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 
 import 'package:acnh_helper/item_type.dart';
 import 'package:acnh_helper/model/villager.dart';
+import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/provider/villagers_provider.dart';
 import 'package:acnh_helper/sort_by.dart';
-import 'package:acnh_helper/ui/common/app_colors.dart';
 import 'package:acnh_helper/ui/common/base_screen.dart';
 import 'package:acnh_helper/ui/common/routes.dart';
 import 'package:acnh_helper/ui/filter/filter_by_button.dart';
@@ -100,10 +100,12 @@ class VillagerScreen extends BaseScreen<VillagersProvider, Villager> {
 
   @override
   List<InfoChip> listInformationWidgets(BuildContext context, Villager item) {
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
+
     return [
       InfoChip(
         title: "Neighbor",
-        color: AppColors.neighborColor,
+        color: prefs.neighborColor,
         visible: item.isNeighbor,
       ),
     ];
@@ -111,9 +113,11 @@ class VillagerScreen extends BaseScreen<VillagersProvider, Villager> {
 
   @override
   List<InfoBadge> gridInformationWidgets(BuildContext context, Villager item) {
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
+
     return [
       InfoBadge(
-        color: AppColors.neighborColor,
+        color: prefs.neighborColor,
         visible: item.isNeighbor,
         alignment: Alignment.topRight,
       ),

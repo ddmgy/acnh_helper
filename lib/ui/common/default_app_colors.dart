@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
+class DefaultAppColors {
   static const donatedColor = Colors.blue;
 
   static const foundColor = Colors.green;

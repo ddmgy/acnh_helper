@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:preferences_ui/preferences_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,8 @@ import 'package:acnh_helper/provider/villagers_provider.dart';
 import 'package:acnh_helper/theme/theme_type.dart';
 import 'package:acnh_helper/ui/changelog/changelog_screen.dart';
 import 'package:acnh_helper/utils.dart';
+
+typedef ColorPreferenceSetter = Function(Color newColor);
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -69,6 +72,77 @@ class SettingsScreen extends StatelessWidget {
               onChanged: (bool newShowTimeAs12Hour) {
                 provider.showTimeAs12Hour = newShowTimeAs12Hour;
               },
+            ),
+          ],
+        ),
+        PreferenceGroup(
+          title: "Colors",
+          children: [
+            Preference(
+              title: "Found",
+              summary: "Items that have been marked as found by user",
+              leading: _colorIcon(provider.foundColor),
+              onTap: () => _showColorPickerDialog(
+                context,
+                provider.foundColor,
+                (Color newColor) => provider.foundColor = newColor,
+              ),
+            ),
+            Preference(
+              title: "Donated",
+              summary: "Items that have been marked as donated by user",
+              leading: _colorIcon(provider.donatedColor),
+              onTap: () => _showColorPickerDialog(
+                context,
+                provider.donatedColor,
+                (Color newColor) => provider.donatedColor = newColor,
+              ),
+            ),
+            Preference(
+              title: "Currently available",
+              summary: "Items that are available to find this month",
+              leading: _colorIcon(provider.currentlyAvailableColor),
+              onTap: () => _showColorPickerDialog(
+                context,
+                provider.currentlyAvailableColor,
+                (Color newColor) => provider.currentlyAvailableColor = newColor,
+              ),
+            ),
+            Preference(
+              title: "Newly available",
+              summary: "Items that are available to find this month, but were not available last month",
+              leading: _colorIcon(provider.newlyAvailableColor),
+              onTap: () => _showColorPickerDialog(
+                context,
+                provider.newlyAvailableColor,
+                (Color newColor) => provider.newlyAvailableColor = newColor,
+              ),
+            ),
+            Preference(
+              title: "Leaving soon",
+              summary: "Items that are available to find this month, but will not be available next month",
+              leading: _colorIcon(provider.leavingSoonColor),
+              onTap: () => _showColorPickerDialog(
+                context,
+                provider.leavingSoonColor,
+                (Color newColor) => provider.leavingSoonColor = newColor,
+              ),
+            ),
+            Preference(
+              title: "Neighbor",
+              summary: "Villagers that have been marked as a neighbor by user",
+              leading: _colorIcon(provider.neighborColor),
+              onTap: () => _showColorPickerDialog(
+                context,
+                provider.neighborColor,
+                (Color newColor) => provider.neighborColor = newColor,
+              ),
+            ),
+            Preference(
+              title: "Reset colors",
+              summary: "Reset colors to defaults",
+              leading: Icon(Icons.color_lens),
+              onLongPress: () => provider.resetColors(),
             ),
           ],
         ),
@@ -130,6 +204,11 @@ class SettingsScreen extends StatelessWidget {
                 Provider.of<PreferencesProvider>(context, listen: false).clear();
               },
             ),
+          ],
+        ),
+        PreferenceGroup(
+          title: "Other",
+          children: [
             PreferencePage(
               title: "About",
               summary: "Information about this application",
@@ -162,4 +241,48 @@ class SettingsScreen extends StatelessWidget {
       ],
     ),
   );
+
+  Widget _colorIcon(Color color) => AnimatedContainer(
+    duration: kThemeChangeDuration,
+    decoration: ShapeDecoration(
+      color: color,
+      shape: CircleBorder(),
+    )
+  );
+
+  void _showColorPickerDialog(
+    BuildContext context,
+    Color initialColor,
+    ColorPreferenceSetter onColorChanged,
+  ) async {
+    Color pickerColor = initialColor;
+    final newColor = await showDialog<Color>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text("Choose a color"),
+        scrollable: true,
+        content: SlidePicker(
+          pickerColor: pickerColor,
+          showLabel: true,
+          enableAlpha: false,
+          paletteType: PaletteType.rgb,
+          onColorChanged: (Color color) => pickerColor = color,
+        ),
+        actions: [
+          FlatButton(
+            child: const Text("Cancel"),
+            onPressed: () => Navigator.of(context).pop(null),
+          ),
+          FlatButton(
+            child: const Text("OK"),
+            onPressed: () => Navigator.of(context).pop(pickerColor),
+          ),
+        ],
+      ),
+    );
+
+    if (newColor != null && newColor != initialColor) {
+      onColorChanged(newColor);
+    }
+  }
 }

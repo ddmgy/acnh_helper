@@ -10,7 +10,6 @@ import 'package:acnh_helper/model/traits.dart';
 import 'package:acnh_helper/provider/bugs_provider.dart';
 import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/sort_by.dart';
-import 'package:acnh_helper/ui/common/app_colors.dart';
 import 'package:acnh_helper/ui/common/base_screen.dart';
 import 'package:acnh_helper/ui/common/routes.dart';
 import 'package:acnh_helper/ui/filter/filter_by_button.dart';
@@ -102,7 +101,8 @@ class BugScreen extends BaseScreen<BugsProvider, Bug> {
 
   @override
   List<InfoChip> listInformationWidgets(BuildContext context, Bug item) {
-    final calendarOptions = Provider.of<PreferencesProvider>(context, listen: false).calendarOptions;
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
+    final calendarOptions = prefs.calendarOptions;
     final isCurrentlyAvailable = item.isCurrentlyAvailable(calendarOptions);
     final isNewlyAvailable = item.isNewlyAvailable(calendarOptions);
     final isLeavingSoon = item.isLeavingSoon(calendarOptions);
@@ -110,27 +110,27 @@ class BugScreen extends BaseScreen<BugsProvider, Bug> {
     return [
       InfoChip(
         title: "Found",
-        color: AppColors.foundColor,
+        color: prefs.foundColor,
         visible: item.found,
       ),
       InfoChip(
         title: "Donated",
-        color: AppColors.donatedColor,
+        color: prefs.donatedColor,
         visible: item.donated,
       ),
       InfoChip(
         title: "Available",
-        color: AppColors.currentlyAvailableColor,
+        color: prefs.currentlyAvailableColor,
         visible: isCurrentlyAvailable && !(isNewlyAvailable || isLeavingSoon),
       ),
       InfoChip(
         title: "New",
-        color: AppColors.newlyAvailableColor,
+        color: prefs.newlyAvailableColor,
         visible: isNewlyAvailable,
       ),
       InfoChip(
         title: "Leaving soon",
-        color: AppColors.leavingSoonColor,
+        color: prefs.leavingSoonColor,
         visible: isLeavingSoon,
       ),
     ];
@@ -138,34 +138,35 @@ class BugScreen extends BaseScreen<BugsProvider, Bug> {
 
   @override
   List<InfoBadge> gridInformationWidgets(BuildContext context, Bug item) {
-    final calendarOptions = Provider.of<PreferencesProvider>(context, listen: false).calendarOptions;
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
+    final calendarOptions = prefs.calendarOptions;
     final isCurrentlyAvailable = item.isCurrentlyAvailable(calendarOptions);
     final isNewlyAvailable = item.isNewlyAvailable(calendarOptions);
     final isLeavingSoon = item.isLeavingSoon(calendarOptions);
 
     return [
       InfoBadge(
-        color: AppColors.foundColor,
+        color: prefs.foundColor,
         visible: item.found && !item.donated,
         alignment: Alignment.topRight,
       ),
       InfoBadge(
-        color: AppColors.donatedColor,
+        color: prefs.donatedColor,
         visible: item.donated,
         alignment: Alignment.topRight,
       ),
       InfoBadge(
-        color: AppColors.currentlyAvailableColor,
+        color: prefs.currentlyAvailableColor,
         visible: isCurrentlyAvailable && !(isNewlyAvailable || isLeavingSoon),
         alignment: Alignment.topLeft,
       ),
       InfoBadge(
-        color: AppColors.newlyAvailableColor,
+        color: prefs.newlyAvailableColor,
         visible: isNewlyAvailable,
         alignment: Alignment.topLeft,
       ),
       InfoBadge(
-        color: AppColors.leavingSoonColor,
+        color: prefs.leavingSoonColor,
         visible: isLeavingSoon,
         alignment: Alignment.topLeft,
       ),

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:acnh_helper/item_type.dart';
 import 'package:acnh_helper/model/art.dart';
 import 'package:acnh_helper/provider/arts_provider.dart';
-import 'package:acnh_helper/ui/common/app_colors.dart';
+import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/ui/common/base_screen.dart';
 import 'package:acnh_helper/ui/common/routes.dart';
 import 'package:acnh_helper/ui/filter/filter_by_button.dart';
@@ -85,15 +85,17 @@ class ArtScreen extends BaseScreen<ArtsProvider, Art> {
 
   @override
   List<InfoChip> listInformationWidgets(BuildContext context, Art item) {
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
+
     return [
       InfoChip(
         title: "Found",
-        color: AppColors.foundColor,
+        color: prefs.foundColor,
         visible: item.found,
       ),
       InfoChip(
         title: "Donated",
-        color: AppColors.donatedColor,
+        color: prefs.donatedColor,
         visible: item.donated,
       ),
     ];
@@ -101,14 +103,16 @@ class ArtScreen extends BaseScreen<ArtsProvider, Art> {
 
   @override
   List<InfoBadge> gridInformationWidgets(BuildContext context, Art item) {
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
+
     return [
       InfoBadge(
-        color: AppColors.foundColor,
+        color: prefs.foundColor,
         visible: item.found && !item.donated,
         alignment: Alignment.topRight,
       ),
       InfoBadge(
-        color: AppColors.donatedColor,
+        color: prefs.donatedColor,
         visible: item.donated,
         alignment: Alignment.topRight,
       ),

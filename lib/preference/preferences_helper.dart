@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:acnh_helper/hemisphere.dart';
@@ -172,6 +174,17 @@ class PreferencesHelper {
     final prefs = await preferences;
     prefs.setBool(PreferenceKeys.showTimeAs12Hour, showTimeAs12Hour);
   }
+
+  Future<Color> getColor(String colorType, Color defaultValue) async {
+    final prefs = await preferences;
+    final savedValue = prefs.getInt(PreferenceKeys.color(colorType));
+    return savedValue != null ? Color(savedValue) : defaultValue;
+  }
+
+  Future<void> setColor(String colorType, Color color) async {
+    final prefs = await preferences;
+    prefs.setInt(PreferenceKeys.color(colorType), color.value);
+  }
 }
 
 class PreferenceKeys {
@@ -204,6 +217,8 @@ class PreferenceKeys {
   static String get showTimeAsString => "show_time_as_string";
 
   static String get showTimeAs12Hour => "show_time_as_12_hour";
+
+  static String color(String colorType) => "color_$colorType";
 }
 
 class PreferenceValues {

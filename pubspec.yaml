@@ -23,6 +23,7 @@ dependencies:
   auto_size_text: ^2.1.0
   flutter_markdown: ^0.5.0
   url_launcher: ^5.7.0
+  flutter_colorpicker: ^0.3.0
   shared_preferences: ">=0.5.0 <2.0.0"
   preferences_ui:
     git:

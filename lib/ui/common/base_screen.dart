@@ -479,12 +479,7 @@ class BaseScreenGridItem<T extends CommonTraits> extends StatelessWidget {
             width: 8,
             decoration: ShapeDecoration(
               color: badge.color,
-              shape: CircleBorder(
-                side: BorderSide(
-                  width: 1,
-                  color: Colors.white,
-                ),
-              ),
+              shape: CircleBorder(),
             ),
           ),
         ),

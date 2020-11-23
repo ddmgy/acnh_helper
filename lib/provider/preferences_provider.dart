@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:acnh_helper/calendar_options.dart';
+import 'package:acnh_helper/color_type.dart';
 import 'package:acnh_helper/filter_type.dart';
 import 'package:acnh_helper/hemisphere.dart';
 import 'package:acnh_helper/item_type.dart';
@@ -8,6 +9,7 @@ import 'package:acnh_helper/month.dart';
 import 'package:acnh_helper/preference/preferences_helper.dart';
 import 'package:acnh_helper/sort_by.dart';
 import 'package:acnh_helper/theme/theme_type.dart';
+import 'package:acnh_helper/ui/common/default_app_colors.dart';
 
 // TODO: Customize light theme
 ThemeData _lightTheme = ThemeData.light().copyWith(
@@ -208,6 +210,72 @@ class PreferencesProvider extends ChangeNotifier {
     _prefs.setShowTimeAs12Hour(_showTimeAs12Hour);
   }
 
+  Color _foundColor = DefaultAppColors.foundColor;
+  Color get foundColor => _foundColor;
+  set foundColor(Color newFoundColor) {
+    if (newFoundColor == null || newFoundColor == _foundColor) {
+      return;
+    }
+    _foundColor = newFoundColor;
+    notifyListeners();
+    _prefs.setColor(ColorType.found, _foundColor);
+  }
+
+  Color _donatedColor = DefaultAppColors.donatedColor;
+  Color get donatedColor => _donatedColor;
+  set donatedColor(Color newDonatedColor) {
+    if (newDonatedColor == null || newDonatedColor == _donatedColor) {
+      return;
+    }
+    _donatedColor = newDonatedColor;
+    notifyListeners();
+    _prefs.setColor(ColorType.donated, _donatedColor);
+  }
+
+  Color _neighborColor = DefaultAppColors.neighborColor;
+  Color get neighborColor => _neighborColor;
+  set neighborColor(Color newNeighborColor) {
+    if (newNeighborColor == null || newNeighborColor == _neighborColor) {
+      return;
+    }
+    _neighborColor = newNeighborColor;
+    notifyListeners();
+    _prefs.setColor(ColorType.neighbor, _neighborColor);
+  }
+
+  Color _currentlyAvailableColor = DefaultAppColors.newlyAvailableColor;
+  Color get currentlyAvailableColor => _currentlyAvailableColor;
+  set currentlyAvailableColor(Color newCurrentlyAvailableColor) {
+    if (newCurrentlyAvailableColor == null || newCurrentlyAvailableColor == _currentlyAvailableColor) {
+      return;
+    }
+    _currentlyAvailableColor = newCurrentlyAvailableColor;
+    notifyListeners();
+    _prefs.setColor(ColorType.currentlyAvailable, _currentlyAvailableColor);
+  }
+
+  Color _newlyAvailableColor = DefaultAppColors.newlyAvailableColor;
+  Color get newlyAvailableColor => _newlyAvailableColor;
+  set newlyAvailableColor(Color newNewlyAvailableColor) {
+    if (newNewlyAvailableColor == null || newNewlyAvailableColor == _newlyAvailableColor) {
+      return;
+    }
+    _newlyAvailableColor = newNewlyAvailableColor;
+    notifyListeners();
+    _prefs.setColor(ColorType.newlyAvailable, _newlyAvailableColor);
+  }
+
+  Color _leavingSoonColor = DefaultAppColors.leavingSoonColor;
+  Color get leavingSoonColor => _leavingSoonColor;
+  set leavingSoonColor(Color newLeavingSoonColor) {
+    if (newLeavingSoonColor == null || newLeavingSoonColor == _leavingSoonColor) {
+      return;
+    }
+    _leavingSoonColor = newLeavingSoonColor;
+    notifyListeners();
+    _prefs.setColor(ColorType.leavingSoon, _leavingSoonColor);
+  }
+
   PreferencesProvider() {
     _initPreferences();
   }
@@ -232,7 +300,29 @@ class PreferencesProvider extends ChangeNotifier {
     _showMonthsAsString = await _prefs.getShowMonthsAsString();
     _showTimeAsString = await _prefs.getShowTimeAsString();
     _showTimeAs12Hour = await _prefs.getShowTimeAs12Hour();
+    _foundColor = await _prefs.getColor(ColorType.found, DefaultAppColors.foundColor);
+    _donatedColor = await _prefs.getColor(ColorType.donated, DefaultAppColors.donatedColor);
+    _neighborColor = await _prefs.getColor(ColorType.neighbor, DefaultAppColors.neighborColor);
+    _currentlyAvailableColor = await _prefs.getColor(ColorType.currentlyAvailable, DefaultAppColors.currentlyAvailableColor);
+    _newlyAvailableColor = await _prefs.getColor(ColorType.newlyAvailable, DefaultAppColors.newlyAvailableColor);
+    _leavingSoonColor = await _prefs.getColor(ColorType.leavingSoon, DefaultAppColors.leavingSoonColor);
     notifyListeners();
+  }
+
+  void resetColors() {
+    _foundColor = DefaultAppColors.foundColor;
+    _donatedColor = DefaultAppColors.donatedColor;
+    _neighborColor = DefaultAppColors.neighborColor;
+    _currentlyAvailableColor = DefaultAppColors.currentlyAvailableColor;
+    _newlyAvailableColor = DefaultAppColors.newlyAvailableColor;
+    _leavingSoonColor = DefaultAppColors.leavingSoonColor;
+    notifyListeners();
+    _prefs.setColor(ColorType.found, _foundColor);
+    _prefs.setColor(ColorType.donated, _donatedColor);
+    _prefs.setColor(ColorType.neighbor, _neighborColor);
+    _prefs.setColor(ColorType.currentlyAvailable, _currentlyAvailableColor);
+    _prefs.setColor(ColorType.newlyAvailable, _newlyAvailableColor);
+    _prefs.setColor(ColorType.leavingSoon, _leavingSoonColor);
   }
 
   void clear() async {

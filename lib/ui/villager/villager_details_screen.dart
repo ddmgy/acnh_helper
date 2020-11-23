@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import 'package:acnh_helper/item_type.dart';
 import 'package:acnh_helper/model/villager.dart';
+import 'package:acnh_helper/provider/preferences_provider.dart';
 import 'package:acnh_helper/provider/villagers_provider.dart';
-import 'package:acnh_helper/ui/common/app_colors.dart';
 import 'package:acnh_helper/ui/common/base_details_screen.dart';
 import 'package:acnh_helper/utils.dart';
 
@@ -20,10 +20,12 @@ class VillagerDetailsScreen extends BaseDetailsScreen<VillagersProvider, Village
   @override
   List<InfoButton> interactiveWidgets(BuildContext context, Villager item) {
     final theme = Theme.of(context);
+    final prefs = Provider.of<PreferencesProvider>(context, listen: true);
+
     return [
       InfoButton(
         title: "Neighbor",
-        color: item.isNeighbor ? AppColors.neighborColor : theme.disabledColor,
+        color: item.isNeighbor ? prefs.neighborColor : theme.disabledColor,
         onPressed: () {
           Provider.of<VillagersProvider>(context, listen: false).updateItem(
             item.copyWith(
